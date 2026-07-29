@@ -1,0 +1,15 @@
+{
+  "name": "americas-real-doctors",
+  "version": "1.0.0",
+  "private": true,
+  "description": "America's Real Doctors - secure, map-based doctor directory",
+  "type": "module",
+  "scripts": {
+    "lint": "find assets/js src tests scripts -name '*.js' -print0 | xargs -0 -n1 node --check",
+    "format": "node scripts/format-check.mjs",
+    "typecheck": "npm run lint",
+    "test": "node --test",
+    "check": "npm run format && npm run lint && npm run typecheck && npm run test",
+    "serve": "python3 -m http.server 4173"
+  }
+}
