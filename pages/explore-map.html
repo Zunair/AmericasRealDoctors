@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Explore Map | America's Real Doctors</title>
+  <meta name="description" content="Clustered map discovery with search-this-area and responsive map/list switching.">
+  <link rel="canonical" href="https://americasrealdoctors.com/pages/explore-map.html">
+  <link rel="stylesheet" href="/assets/css/main.css">
+  <script type="module" src="/assets/js/main.js" defer></script>
+</head>
+<body>
+<a href="#main-content" class="skip-link">Skip to main content</a>
+<header class="site-header">
+  <a class="brand" href="/index.html">America's Real Doctors</a>
+  <nav class="nav-links" aria-label="Primary">
+    <a href="/pages/explore-map.html">Explore Map</a>
+    <a href="/pages/doctor-search-results.html">Find a Doctor</a>
+    <a href="/pages/join-as-doctor.html">Join as a Doctor</a>
+    <a href="/pages/how-verification-works.html">Verification</a>
+    <a href="/pages/sign-in.html">Sign In</a>
+  </nav>
+  <button type="button" data-theme-toggle aria-label="Toggle dark and light theme">Theme</button>
+</header>
+<main id="main-content" class="page-shell">
+  <section class="page-hero">
+    <h1>Explore Doctors on the Map</h1>
+    <p>Clustered map discovery with search-this-area and responsive map/list switching.</p>
+  </section>
+  <section data-map-enabled data-mobile-shell data-mobile-view="map" class="map-shell"><div class="mobile-map-toggle"><button type="button" data-view-switch="map">Map</button><button type="button" data-view-switch="list">List</button></div><div class="layout-2"><article class="panel map-panel"><h2>Region to City zoom behavior</h2><p>Select cluster buttons to move from region context to city-level doctor previews.</p><div class="actions"><button type="button" data-cluster data-city="Philadelphia" data-docs="12">Philadelphia</button><button type="button" data-cluster data-city="Toronto" data-docs="8">Toronto</button><button type="button" data-search-area>Search this area</button><button type="button" data-geolocate>Use my location</button></div><p class="notice" data-map-preview>City preview appears here.</p></article><article class="panel list-panel"><h2>Synced doctor list</h2><form data-search-form class="grid"><label>City<input name="city"></label><label>Specialty<input name="specialty"></label><label>Telehealth<select name="telehealth"><option value="">Any</option><option value="true">Yes</option><option value="false">No</option></select></label><button class="btn btn-primary" type="submit">Search</button></form><div class="card-list" data-doctor-list></div></article></div></section>
+</main>
+<footer class="site-footer">
+  <nav class="footer-links" aria-label="Footer">
+    <a href="/pages/about.html">About</a><a href="/pages/frequently-asked-questions.html">FAQ</a><a href="/pages/privacy-policy.html">Privacy Policy</a><a href="/pages/terms-of-use.html">Terms</a><a href="/pages/medical-disclaimer.html">Disclaimer</a>
+  </nav>
+</footer>
+</body>
+</html>
