@@ -1,6 +1,7 @@
 import { initializeTheme } from './ui/themeController.js';
 import { initializeMapAndList } from './ui/mapController.js';
 import { initializeRegistrationGuards } from './ui/registrationController.js';
+import { initializeSharedChrome } from './ui/siteChrome.js';
 import { FUTURE_PHASE_FEATURES, VERIFICATION_BADGES } from './config/constants.js';
 
 function renderSharedLists() {
@@ -15,7 +16,19 @@ function renderSharedLists() {
   }
 }
 
+initializeSharedChrome();
 initializeTheme();
 initializeMapAndList();
 initializeRegistrationGuards();
 renderSharedLists();
+
+const signInForm = document.querySelector('[data-sign-in-form]');
+if (signInForm) {
+  signInForm.addEventListener('submit', (event) => {
+    event.preventDefault();
+    const status = document.querySelector('[data-sign-in-status]');
+    if (status) {
+      status.textContent = 'Sign-in is handled locally in this preview so credentials are not sent through the URL.';
+    }
+  });
+}
