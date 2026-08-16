@@ -1,1 +1,65 @@
-<!doctype html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Contact | America's Real Doctors</title><meta name="description" content="Contact support and report inaccurate profile information."><link rel="stylesheet" href="/assets/css/main.css"><script type="module" src="/assets/js/main.js" defer></script></head><body><main class="page-shell"><section class="page-hero"><h1>Contact</h1><p>Contact support or report inaccurate/outdated profile information.</p></section><section class="grid"><label>Name<input></label><label>Email<input type="email"></label><label>Message<textarea></textarea></label><button class="btn btn-primary">Send</button></section></main></body></html>
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Contact | America's Real Doctors</title>
+	<meta name="description" content="Contact support and report inaccurate profile information.">
+	<link rel="stylesheet" href="/assets/css/main.css">
+	<script type="module" src="/assets/js/main.js" defer></script>
+</head>
+<body>
+	<main class="page-shell auth-shell">
+		<section class="page-hero auth-hero">
+			<p class="eyebrow">Support</p>
+			<h1>Contact</h1>
+			<p>Contact support or report inaccurate or outdated profile information.</p>
+			<ul class="hero-pills" aria-label="Contact highlights">
+				<li>Support requests only</li>
+				<li>Profile corrections</li>
+				<li>Secure follow-up by email</li>
+			</ul>
+		</section>
+		<section class="auth-layout">
+			<form class="panel auth-card" method="post" action="/pages/contact.html" onsubmit="return false">
+				<div class="auth-grid">
+					<label class="auth-field auth-span-2">Name<input type="text" name="name" autocomplete="name" placeholder="Dr. Jane Doe" required></label>
+					<label class="auth-field">Email<input type="email" name="email" autocomplete="email" placeholder="doctor@example.com" required></label>
+					<label class="auth-field auth-span-2">Message<textarea name="message" rows="6" placeholder="Tell us what needs attention" required></textarea></label>
+				</div>
+				<div class="auth-actions">
+					<button class="btn btn-primary" type="submit">Send</button>
+					<a class="btn" href="/pages/frequently-asked-questions.html">View FAQ</a>
+				</div>
+				<p class="auth-footnote">For patient safety issues, include the profile URL and a short summary of the correction needed.</p>
+			</form>
+			<aside class="panel auth-aside">
+				<h2>What we can help with</h2>
+				<ul class="compact auth-list">
+					<li>Profile corrections and outdated practice details</li>
+					<li>General support questions about verification or recovery</li>
+					<li>Accessibility feedback and content issues</li>
+				</ul>
+				<div class="notice auth-notice">Do not send passwords, one-time codes, or other sensitive credentials through this form.</div>
+				<div class="auth-links">
+					<a class="btn" href="/pages/privacy-policy.html">Privacy Policy</a>
+					<a class="btn" href="/pages/medical-disclaimer.html">Medical Disclaimer</a>
+				</div>
+			</aside>
+		</section>
+	</main>
+	<footer class="site-footer">
+		<nav class="footer-links" aria-label="Footer">
+			<a href="/pages/about.html">About</a>
+			<a href="/pages/frequently-asked-questions.html">FAQ</a>
+			<a href="/pages/privacy-policy.html">Privacy Policy</a>
+			<a href="/pages/terms-of-use.html">Terms of Use</a>
+			<a href="/pages/medical-disclaimer.html">Medical Disclaimer</a>
+			<a href="/pages/accessibility-statement.html">Accessibility Statement</a>
+			<a href="/pages/contact.html">Contact</a>
+			<a href="/sitemap.xml">XML Sitemap</a>
+		</nav>
+		<small>Educational directory only. No personalized medical advice. No doctor ranking based on payment.</small>
+	</footer>
+</body>
+</html>
