@@ -14,6 +14,8 @@ This document records durable decisions that help contributors and Copilot under
 ### Canonical content and discovery
 
 - `assets/js/data/siteContent.js` is the canonical registry for shared site metadata and page discovery data.
+- `assets/js/services/contentService.js` is the mandatory asynchronous access boundary for static data now and CMS providers later.
+- Content logging, metrics, caching, and similar cross-cutting behavior belong in `ContentService` middleware so all browser and build consumers receive the same behavior.
 - `scripts/generate-discovery-files.mjs` produces `sitemap.xml`, `llms.txt`, and the generated schema index.
 - Public HTML remains the primary content surface; generated discovery files reinforce rather than replace it.
 

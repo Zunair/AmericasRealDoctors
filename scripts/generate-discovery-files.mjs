@@ -1,49 +1,41 @@
 import { readFileSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
-import { SITE_CONTENT } from '../assets/js/data/siteContent.js';
+import { contentService } from '../assets/js/services/contentService.js';
+
+const siteContent = await contentService.getSiteContent();
 
 const workspaceRoot = process.cwd();
 const sitemapPath = join(workspaceRoot, 'sitemap.xml');
 const llmsPath = join(workspaceRoot, 'llms.txt');
 const schemaPath = join(workspaceRoot, 'assets/js/data/generatedSchemas.js');
 
-const doctorProfile = SITE_CONTENT.pages.find((page) => page.url === '/pages/doctor-profile.html');
-const faqPage = SITE_CONTENT.pages.find((page) => page.url === '/pages/frequently-asked-questions.html');
-const articlePage = SITE_CONTENT.pages.find((page) => page.url === '/pages/article-details.html');
+const doctorProfile = siteContent.pages.find((page) => page.url === '/pages/doctor-profile.html');
+const faqPage = siteContent.pages.find((page) => page.url === '/pages/frequently-asked-questions.html');
+const articlePage = siteContent.pages.find((page) => page.url === '/pages/article-details.html');
 
 const schemaIndex = {
   home: {
     '@context': 'https://schema.org',
     '@type': 'WebSite',
-    name: SITE_CONTENT.site.name,
-    url: SITE_CONTENT.site.url,
+    name: siteContent.site.name,
+    url: siteContent.site.url,
     potentialAction: {
       '@type': 'SearchAction',
-      target: `${SITE_CONTENT.site.url}/pages/doctor-search-results.html?doctorName={doctorName}`,
+      target: `${siteContent.site.url}/pages/doctor-search-results.html?doctorName={doctorName}`,
       'query-input': 'required name=doctorName'
     }
   },
   faq: {
     '@context': 'https://schema.org',
     '@type': 'FAQPage',
-    mainEntity: [
-      {
-        '@type': 'Question',
-        name: 'Can I search without an account?',
-        acceptedAnswer: {
-          '@type': 'Answer',
-          text: 'Yes. Public users can search without creating a patient account in version one.'
-        }
-      },
-      {
-        '@type': 'Question',
-        name: 'Does this site provide personalized medical advice?',
-        acceptedAnswer: {
-          '@type': 'Answer',
-          text: 'No. Content is educational only.'
-        }
+    mainEntity: siteContent.faqs.map((faq) => ({
+      '@type': 'Question',
+      name: faq.question,
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: faq.answer
       }
-    ]
+    }))
   },
   article: {
     '@context': 'https://schema.org',
@@ -56,7 +48,7 @@ const schemaIndex = {
     },
     publisher: {
       '@type': 'Organization',
-      name: SITE_CONTENT.site.name
+      name: siteContent.site.name
     }
   },
   doctorProfile: {
@@ -64,7 +56,7 @@ const schemaIndex = {
     '@type': 'Physician',
     name: 'Dr. Elena Morris',
     medicalSpecialty: ['Family Medicine', 'Integrative Medicine', 'Preventive Care'],
-    url: `${SITE_CONTENT.site.url}/pages/doctor-profile.html`,
+    url: `${siteContent.site.url}/pages/doctor-profile.html`,
     address: {
       '@type': 'PostalAddress',
       addressLocality: 'Philadelphia',
@@ -72,20 +64,20 @@ const schemaIndex = {
       addressCountry: 'US'
     }
   },
-  browsePages: SITE_CONTENT.pages
+  browsePages: siteContent.pages
     .filter((page) => page.group === 'browse')
     .map((page) => ({
       '@context': 'https://schema.org',
       '@type': 'CollectionPage',
       name: page.title,
       description: page.description,
-      url: `${SITE_CONTENT.site.url}${page.url}`
+      url: `${siteContent.site.url}${page.url}`
     }))
 };
 
-const sitemapUrls = SITE_CONTENT.pages
+const sitemapUrls = siteContent.pages
   .filter((page) => page.url.startsWith('/') && page.group !== 'admin')
-  .map((page) => `  <url><loc>${SITE_CONTENT.site.url}${page.url}</loc></url>`)
+  .map((page) => `  <url><loc>${siteContent.site.url}${page.url}</loc></url>`)
   .join('\n');
 
 const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
@@ -94,7 +86,7 @@ ${sitemapUrls}
 </urlset>
 `;
 
-const groupedPages = SITE_CONTENT.pages.reduce((groups, page) => {
+const groupedPages = siteContent.pages.reduce((groups, page) => {
   const group = page.group ?? 'other';
   groups[group] ??= [];
   groups[group].push(page);
@@ -104,7 +96,7 @@ const groupedPages = SITE_CONTENT.pages.reduce((groups, page) => {
 const llms = [
   '# America\'s Real Doctors',
   '',
-  SITE_CONTENT.site.description,
+  siteContent.site.description,
   '',
   '## Purpose',
   '- Crawlable directory for verified, patient-focused doctors.',
@@ -112,12 +104,12 @@ const llms = [
   '- JSON-LD, sitemap.xml, and llms.txt are generated from the same content registry.',
   '',
   '## Search dimensions',
-  `- ${SITE_CONTENT.browseDimensions.join(', ')}`,
+  `- ${siteContent.browseDimensions.join(', ')}`,
   '',
   '## Public pages',
   ...Object.entries(groupedPages).flatMap(([group, pages]) => [
     `### ${group}`,
-    ...pages.map((page) => `- [${page.title}](${SITE_CONTENT.site.url}${page.url}) — ${page.description}`),
+    ...pages.map((page) => `- [${page.title}](${siteContent.site.url}${page.url}) — ${page.description}`),
     ''
   ]),
   '## Discovery notes',

@@ -1,3 +1,5 @@
-import { SITE_CONTENT } from './data/siteContent.js';
+import { contentService } from './services/contentService.js';
 
-export const PAGE_LINKS = SITE_CONTENT.pages.map((page) => [page.title, page.url]);
+const siteContent = await contentService.getSiteContent();
+
+export const PAGE_LINKS = siteContent.pages.map((page) => [page.title, page.url]);

@@ -33,6 +33,7 @@ body::before{content:'';position:fixed;inset:0;pointer-events:none;opacity:.2;ba
 .skip-link{position:absolute;left:-9999px;top:0}.skip-link:focus{left:1rem;top:1rem;background:var(--panel-solid);padding:.6rem .9rem;border-radius:.55rem;border:1px solid var(--border)}
 .site-header,.site-footer,.page-shell{width:min(1120px,94vw);margin:0 auto}
 .site-header,.page-shell,.site-footer{flex:0 0 auto}
+.page-shell{display:grid;gap:1rem}
 .site-header{display:flex;align-items:center;justify-content:space-between;gap:1rem;padding:1rem 0;position:sticky;top:0;backdrop-filter:blur(10px);z-index:30}
 .brand{font-weight:750;text-decoration:none;color:var(--text)}
 .header-actions{display:flex;align-items:center;gap:.6rem;margin-left:auto}

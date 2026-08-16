@@ -1,7 +1,5 @@
-import { DOCTORS } from '../data/doctors.js';
-
 export class MapService {
-  constructor(doctors = DOCTORS) {
+  constructor(doctors) {
     this.doctors = doctors;
   }
 

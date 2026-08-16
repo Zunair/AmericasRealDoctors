@@ -17,6 +17,9 @@
 - [x] Standardized browser UI controllers around a class-based initialize pattern for consistency.
 - [x] Normalized page chrome so public pages use the shared header and footer implementation instead of mixed handwritten variants.
 - [x] Removed the last handwritten footer variants so all public pages now use the shared chrome controller.
+- [x] Centralized FAQ content in the canonical registry and added checks for generated schema and crawlable HTML alignment.
+- [x] Routed browser, build, and test content reads through one asynchronous service with middleware hooks for future CMS logging, metrics, and caching.
+- [x] Moved standard section spacing into the shared page shell so multi-section pages cannot accidentally render joined panels.
 
 ## Detailed Plan
 

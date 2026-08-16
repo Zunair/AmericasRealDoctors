@@ -24,10 +24,18 @@ export const GENERATED_SCHEMA_INDEX = {
       },
       {
         "@type": "Question",
-        "name": "Does this site provide personalized medical advice?",
+        "name": "Are credential documents public?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "No. Content is educational only."
+          "text": "No. Documents stay private for administrative verification only."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Can doctors be ranked by payment?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "No. Doctors are not ranked by payment."
         }
       }
     ]

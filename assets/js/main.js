@@ -18,7 +18,7 @@ function renderSharedLists() {
 
 initializeSharedChrome();
 initializeTheme();
-initializeMapAndList();
+await initializeMapAndList();
 initializeRegistrationGuards();
 renderSharedLists();
 
