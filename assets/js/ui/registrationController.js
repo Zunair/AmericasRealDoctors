@@ -1,28 +1,46 @@
 import { validateStrongPassword } from '../services/authSecurityService.js';
 
-export function initializeRegistrationGuards() {
-  const passwordField = document.querySelector('[data-password]');
-  const passwordHint = document.querySelector('[data-password-hint]');
-  const copySecretButton = document.querySelector('[data-copy-secret]');
+export class RegistrationController {
+  constructor({ documentRoot = document, clipboard = navigator.clipboard } = {}) {
+    this.documentRoot = documentRoot;
+    this.clipboard = clipboard;
+    this.passwordField = this.documentRoot.querySelector('[data-password]');
+    this.passwordHint = this.documentRoot.querySelector('[data-password-hint]');
+    this.copySecretButton = this.documentRoot.querySelector('[data-copy-secret]');
+  }
 
-  if (passwordField && passwordHint) {
-    passwordField.addEventListener('input', () => {
-      passwordHint.textContent = validateStrongPassword(passwordField.value)
+  initialize() {
+    this.bindPasswordHint();
+    this.bindSecretCopy();
+  }
+
+  bindPasswordHint() {
+    if (!this.passwordField || !this.passwordHint) return;
+
+    this.passwordField.addEventListener('input', () => {
+      this.passwordHint.textContent = validateStrongPassword(this.passwordField.value)
         ? 'Strong password format met.'
         : 'Use 12+ characters with upper/lowercase, number, and symbol.';
     });
   }
 
-  if (copySecretButton) {
-    copySecretButton.addEventListener('click', async () => {
-      const source = document.querySelector(copySecretButton.dataset.copySecret);
+  bindSecretCopy() {
+    if (!this.copySecretButton) return;
+
+    this.copySecretButton.addEventListener('click', async () => {
+      const source = this.documentRoot.querySelector(this.copySecretButton.dataset.copySecret);
       if (!source) return;
+
       try {
-        await navigator.clipboard.writeText(source.textContent.trim());
-        copySecretButton.textContent = 'Secret copied';
+        await this.clipboard.writeText(source.textContent.trim());
+        this.copySecretButton.textContent = 'Secret copied';
       } catch {
-        copySecretButton.textContent = 'Copy unavailable';
+        this.copySecretButton.textContent = 'Copy unavailable';
       }
     });
   }
+}
+
+export function initializeRegistrationGuards() {
+  new RegistrationController().initialize();
 }

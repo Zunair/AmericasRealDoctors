@@ -5,11 +5,12 @@
   "description": "America's Real Doctors - secure, map-based doctor directory",
   "type": "module",
   "scripts": {
-    "lint": "find assets/js src tests scripts -name '*.js' -print0 | xargs -0 -n1 node --check",
+    "lint": "node scripts/lint-check.mjs",
     "format": "node scripts/format-check.mjs",
+    "generate:discovery": "node scripts/generate-discovery-files.mjs",
     "typecheck": "npm run lint",
     "test": "node --test",
     "check": "npm run format && npm run lint && npm run typecheck && npm run test",
-    "serve": "python3 -m http.server 4173"
+    "serve": "node scripts/serve.mjs"
   }
 }
