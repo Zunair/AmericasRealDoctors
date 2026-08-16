@@ -1,6 +1,6 @@
 # Project Index
 
-This repository is already organized around a clear separation of concerns. Use this page as the quick map for future expansion.
+This repository is organized around a clear separation of concerns. Use this page to locate the smallest owning surface for a requested change without reading the entire repository. Consult `architecture-decisions.md` for durable decisions that affect that surface.
 
 ## Top-Level Areas
 
@@ -25,6 +25,9 @@ This repository is already organized around a clear separation of concerns. Use 
 
 ## Operating Rules
 
+- Start with this index, then read the owning module, its focused tests, and only directly related dependencies.
+- Keep hand-authored files small and single-purpose so targeted changes require a small context set for both human contributors and Copilot.
+- Record ownership changes here and durable structural decisions in `architecture-decisions.md`; do not turn either document into a file-by-file inventory.
 - Keep scripts portable across Windows and Unix-like systems.
 - Keep security behavior explicit and test-backed.
 - Prefer additive changes that preserve existing pages while introducing shared abstractions.
