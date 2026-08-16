@@ -8,6 +8,7 @@ This repository is already organized around a clear separation of concerns. Use 
 - `assets/css/` contains the shared visual system for layout, theme, and accessibility states.
 - `assets/js/ui/` contains presentation controllers that wire shared interactions across pages.
 - `assets/js/services/` contains reusable client-side domain services such as geocoding, auth policy, and map logic.
+- `assets/js/services/contentService.js` owns all content-provider access and middleware shared by browser and build consumers.
 - `assets/js/data/` contains seed data used for UI previews and local development.
 - `src/security/` contains server-side security logic for trust boundaries, rate limiting, and abuse protection.
 - `tests/security/` covers the security services with focused automated tests.
@@ -17,6 +18,7 @@ This repository is already organized around a clear separation of concerns. Use 
 
 - Move shared page behavior into reusable UI controllers before duplicating logic across HTML files.
 - Keep business rules in services instead of embedding them in page markup.
+- Add CMS providers and content instrumentation behind `ContentService` instead of importing provider data from consumers.
 - Add server-side modules under `src/` when the application starts gaining live state, background jobs, or API endpoints.
 - Keep tests aligned with the owning service or controller so growth stays traceable.
 - Prefer documentation and issue tracking for roadmap work instead of inline TODO comments.

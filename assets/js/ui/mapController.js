@@ -1,8 +1,8 @@
 import { MapService } from '../services/mapService.js';
-import { DOCTORS } from '../data/doctors.js';
+import { contentService } from '../services/contentService.js';
 
 export class MapController {
-  constructor({ documentRoot = document, doctors = DOCTORS, mapService = new MapService(doctors) } = {}) {
+  constructor({ documentRoot = document, doctors = [], mapService = new MapService(doctors) } = {}) {
     this.documentRoot = documentRoot;
     this.doctors = doctors;
     this.mapService = mapService;
@@ -114,6 +114,9 @@ export class MapController {
   }
 }
 
-export function initializeMapAndList() {
-  new MapController().initialize();
+export async function initializeMapAndList({ documentRoot = document, service = contentService } = {}) {
+  if (!documentRoot.querySelector('[data-map-enabled]')) return;
+
+  const doctors = await service.getDoctors();
+  new MapController({ documentRoot, doctors }).initialize();
 }

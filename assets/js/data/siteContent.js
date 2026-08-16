@@ -1,5 +1,3 @@
-import { DOCTORS } from './doctors.js';
-
 export const SITE_CONTENT = {
   site: {
     name: "America's Real Doctors",
@@ -7,6 +5,20 @@ export const SITE_CONTENT = {
     description: 'Secure, map-based physician directory connecting patients with verified, independent, and patient-focused doctors.',
     searchTopics: ['doctor search', 'verification', 'telehealth', 'family medicine', 'integrative medicine', 'location pages']
   },
+  faqs: [
+    {
+      question: 'Can I search without an account?',
+      answer: 'Yes. Public users can search without creating a patient account in version one.'
+    },
+    {
+      question: 'Are credential documents public?',
+      answer: 'No. Documents stay private for administrative verification only.'
+    },
+    {
+      question: 'Can doctors be ranked by payment?',
+      answer: 'No. Doctors are not ranked by payment.'
+    }
+  ],
   pages: [
     { title: 'Home', url: '/index.html', description: 'Homepage with discovery map, doctor search, and verification messaging.', group: 'core' },
     { title: 'Explore Map', url: '/pages/explore-map.html', description: 'Interactive doctor discovery map by region.', group: 'search' },
@@ -40,17 +52,3 @@ export const SITE_CONTENT = {
   ],
   browseDimensions: ['name', 'specialty', 'city', 'country', 'language', 'telehealth', 'acceptingNewPatients', 'verification']
 };
-
-export const PUBLIC_DOCTOR_INDEX = DOCTORS.map((doctor) => ({
-  name: doctor.name,
-  credentials: doctor.credentials,
-  specialty: doctor.specialty,
-  city: doctor.city,
-  country: doctor.country,
-  intro: doctor.intro,
-  certifications: doctor.certifications,
-  telehealth: doctor.telehealth,
-  acceptingNewPatients: doctor.acceptingNewPatients,
-  distance: doctor.distance,
-  verification: doctor.verification
-}));
