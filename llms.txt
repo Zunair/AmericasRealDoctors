@@ -1,0 +1,65 @@
+# America's Real Doctors
+
+Secure, map-based physician directory connecting patients with verified, independent, and patient-focused doctors.
+
+## Purpose
+- Crawlable directory for verified, patient-focused doctors.
+- Public pages are the source of truth for SEO and AI discovery.
+- JSON-LD, sitemap.xml, and llms.txt are generated from the same content registry.
+
+## Search dimensions
+- name, specialty, city, country, language, telehealth, acceptingNewPatients, verification
+
+## Public pages
+### core
+- [Home](https://americasrealdoctors.com/index.html) — Homepage with discovery map, doctor search, and verification messaging.
+
+### search
+- [Explore Map](https://americasrealdoctors.com/pages/explore-map.html) — Interactive doctor discovery map by region.
+- [Doctor Search Results](https://americasrealdoctors.com/pages/doctor-search-results.html) — Filterable doctor search results page.
+
+### doctor
+- [Doctor Profile](https://americasrealdoctors.com/pages/doctor-profile.html) — Public profile for a verified doctor.
+- [Join as a Doctor](https://americasrealdoctors.com/pages/join-as-doctor.html) — Doctor onboarding and verification entry point.
+- [Doctor Registration](https://americasrealdoctors.com/pages/doctor-registration.html) — Doctor registration flow with credential submission.
+- [Doctor Dashboard](https://americasrealdoctors.com/pages/doctor-dashboard.html) — Doctor account dashboard for verification and profile management.
+- [Edit Profile](https://americasrealdoctors.com/pages/edit-profile.html) — Profile editing and status overview.
+- [Credential Management](https://americasrealdoctors.com/pages/credential-management.html) — License and credential tracking.
+
+### account
+- [Email Verification](https://americasrealdoctors.com/pages/email-verification.html) — Email ownership verification step.
+- [2FA Setup](https://americasrealdoctors.com/pages/two-factor-setup.html) — Two-factor authentication setup for doctor and admin accounts.
+- [Sign In](https://americasrealdoctors.com/pages/sign-in.html) — Local sign-in page for doctor and admin accounts.
+- [Forgot Password](https://americasrealdoctors.com/pages/forgot-password.html) — Password recovery entry point.
+- [Account Recovery](https://americasrealdoctors.com/pages/account-recovery.html) — Account recovery workflow and recovery code handling.
+
+### content
+- [Doctor Articles](https://americasrealdoctors.com/pages/doctor-articles.html) — Doctor-authored educational article dashboard.
+- [Article Details](https://americasrealdoctors.com/pages/article-details.html) — Educational article detail page.
+
+### admin
+- [Admin Dashboard](https://americasrealdoctors.com/pages/admin-dashboard.html) — Administrative review and moderation dashboard.
+
+### support
+- [About](https://americasrealdoctors.com/pages/about.html) — Mission, trust model, and directory principles.
+- [How Verification Works](https://americasrealdoctors.com/pages/how-verification-works.html) — Explanation of badges, identity checks, and verification steps.
+- [Frequently Asked Questions](https://americasrealdoctors.com/pages/frequently-asked-questions.html) — Frequently asked questions about verification, privacy, and safety.
+- [Contact](https://americasrealdoctors.com/pages/contact.html) — Support and profile correction form.
+
+### policy
+- [Privacy Policy](https://americasrealdoctors.com/pages/privacy-policy.html) — Privacy and data-handling expectations.
+- [Terms of Use](https://americasrealdoctors.com/pages/terms-of-use.html) — Use terms for the public directory and doctor content.
+- [Medical Disclaimer](https://americasrealdoctors.com/pages/medical-disclaimer.html) — Educational-only medical disclaimer.
+- [Accessibility Statement](https://americasrealdoctors.com/pages/accessibility-statement.html) — Accessibility and inclusive design statement.
+
+### browse
+- [Doctors in Pennsylvania](https://americasrealdoctors.com/pages/doctors-in-pennsylvania.html) — Crawlable location landing page for Pennsylvania doctors.
+- [Doctors in Philadelphia](https://americasrealdoctors.com/pages/doctors-in-philadelphia.html) — Crawlable location landing page for Philadelphia doctors.
+- [Integrative Doctors in California](https://americasrealdoctors.com/pages/integrative-doctors-in-california.html) — Crawlable specialty and location landing page.
+- [Family Physicians Offering Telehealth](https://americasrealdoctors.com/pages/family-physicians-offering-telehealth.html) — Crawlable telehealth landing page for family physicians.
+
+## Discovery notes
+- Keep HTML crawlable and readable without JavaScript.
+- Use schema markup to reinforce the meaning already present in the page text.
+- Avoid duplicating page descriptions or directory copy across files; generate shared text from the canonical registry.
+- Add new city, specialty, and doctor pages to the registry before publishing.

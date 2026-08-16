@@ -1,27 +1,3 @@
-export const PAGE_LINKS = [
-  ['Home', '/index.html'],
-  ['Explore Map', '/pages/explore-map.html'],
-  ['Doctor Search Results', '/pages/doctor-search-results.html'],
-  ['Doctor Profile', '/pages/doctor-profile.html'],
-  ['Join as a Doctor', '/pages/join-as-doctor.html'],
-  ['Doctor Registration', '/pages/doctor-registration.html'],
-  ['Email Verification', '/pages/email-verification.html'],
-  ['2FA Setup', '/pages/two-factor-setup.html'],
-  ['Doctor Dashboard', '/pages/doctor-dashboard.html'],
-  ['Edit Profile', '/pages/edit-profile.html'],
-  ['Credential Management', '/pages/credential-management.html'],
-  ['Doctor Articles', '/pages/doctor-articles.html'],
-  ['Article Details', '/pages/article-details.html'],
-  ['Admin Dashboard', '/pages/admin-dashboard.html'],
-  ['About', '/pages/about.html'],
-  ['How Verification Works', '/pages/how-verification-works.html'],
-  ['FAQ', '/pages/frequently-asked-questions.html'],
-  ['Contact', '/pages/contact.html'],
-  ['Privacy Policy', '/pages/privacy-policy.html'],
-  ['Terms of Use', '/pages/terms-of-use.html'],
-  ['Medical Disclaimer', '/pages/medical-disclaimer.html'],
-  ['Accessibility Statement', '/pages/accessibility-statement.html'],
-  ['Sign In', '/pages/sign-in.html'],
-  ['Forgot Password', '/pages/forgot-password.html'],
-  ['Account Recovery', '/pages/account-recovery.html']
-];
+import { SITE_CONTENT } from './data/siteContent.js';
+
+export const PAGE_LINKS = SITE_CONTENT.pages.map((page) => [page.title, page.url]);

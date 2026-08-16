@@ -17,43 +17,53 @@ const FOOTER_LINKS = [
   { href: '/sitemap.xml', label: 'XML Sitemap' }
 ];
 
-function buildLinkList(links) {
-  return links.map((link) => `<a href="${link.href}">${link.label}</a>`).join('');
-}
+export class SharedChromeController {
+  constructor({ documentRoot = document } = {}) {
+    this.documentRoot = documentRoot;
+  }
 
-function createHeader() {
-  const header = document.createElement('header');
-  header.className = 'site-header';
-  header.innerHTML = `
-    <a href="#main-content" class="skip-link">Skip to main content</a>
-    <a class="brand" href="/index.html">America's Real Doctors</a>
-    <nav class="nav-links" aria-label="Primary">${buildLinkList(PRIMARY_NAV_LINKS)}</nav>
-    <div class="header-actions">
-      <button type="button" class="theme-toggle" data-theme-toggle aria-label="Toggle dark and light theme" aria-pressed="false"></button>
-      <a class="btn header-sign-in" href="/pages/sign-in.html">Sign In</a>
-    </div>
-  `;
-  return header;
-}
+  initialize() {
+    if (!this.documentRoot.querySelector('main')) return;
 
-function createFooter() {
-  const footer = document.createElement('footer');
-  footer.className = 'site-footer';
-  footer.innerHTML = `
-    <nav class="footer-links" aria-label="Footer">${buildLinkList(FOOTER_LINKS)}</nav>
-    <small>Educational directory only. No personalized medical advice. No doctor ranking based on payment.</small>
-  `;
-  return footer;
+    if (!this.documentRoot.querySelector('.site-header')) {
+      this.documentRoot.body.prepend(this.createHeader());
+    }
+
+    if (!this.documentRoot.querySelector('.site-footer')) {
+      this.documentRoot.body.append(this.createFooter());
+    }
+  }
+
+  buildLinkList(links) {
+    return links.map((link) => `<a href="${link.href}">${link.label}</a>`).join('');
+  }
+
+  createHeader() {
+    const header = this.documentRoot.createElement('header');
+    header.className = 'site-header';
+    header.innerHTML = `
+      <a href="#main-content" class="skip-link">Skip to main content</a>
+      <a class="brand" href="/index.html">America's Real Doctors</a>
+      <nav class="nav-links" aria-label="Primary">${this.buildLinkList(PRIMARY_NAV_LINKS)}</nav>
+      <div class="header-actions">
+        <button type="button" class="theme-toggle" data-theme-toggle aria-label="Toggle dark and light theme" aria-pressed="false"></button>
+        <a class="btn header-sign-in" href="/pages/sign-in.html">Sign In</a>
+      </div>
+    `;
+    return header;
+  }
+
+  createFooter() {
+    const footer = this.documentRoot.createElement('footer');
+    footer.className = 'site-footer';
+    footer.innerHTML = `
+      <nav class="footer-links" aria-label="Footer">${this.buildLinkList(FOOTER_LINKS)}</nav>
+      <small>Educational directory only. No personalized medical advice. No doctor ranking based on payment.</small>
+    `;
+    return footer;
+  }
 }
 
 export function initializeSharedChrome() {
-  if (!document.querySelector('main')) return;
-
-  if (!document.querySelector('.site-header')) {
-    document.body.prepend(createHeader());
-  }
-
-  if (!document.querySelector('.site-footer')) {
-    document.body.append(createFooter());
-  }
+  new SharedChromeController().initialize();
 }

@@ -1,54 +1,54 @@
 <!doctype html>
 <html lang="en">
 <head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Sign In | America's Real Doctors</title>
-	<meta name="description" content="Secure local sign-in with required TOTP for doctor/admin accounts.">
-	<link rel="stylesheet" href="/assets/css/main.css">
-	<script type="module" src="/assets/js/main.js" defer></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Sign In | America's Real Doctors</title>
+  <meta name="description" content="Secure local sign-in with required TOTP for doctor/admin accounts.">
+  <link rel="stylesheet" href="/assets/css/main.css">
+  <script type="module" src="/assets/js/main.js" defer></script>
 </head>
 <body>
-	<main class="page-shell auth-shell">
-		<section class="page-hero auth-hero">
-			<p class="eyebrow">Secure access</p>
-			<h1>Sign In</h1>
-			<p>Email/password authentication powers version one. Social and passkey auth are on the roadmap.</p>
-			<ul class="hero-pills" aria-label="Sign in highlights">
-				<li>Local auth</li>
-				<li>TOTP required</li>
-				<li>No social login in v1</li>
-			</ul>
-		</section>
-		<section class="auth-layout">
-			<form class="panel auth-card" data-sign-in-form method="post" action="/pages/sign-in.html" onsubmit="return false">
-				<div class="auth-grid">
-					<label class="auth-field auth-span-2">Email<input type="email" name="email" autocomplete="email" placeholder="doctor@example.com" required></label>
-					<label class="auth-field">Password<input type="password" name="password" autocomplete="current-password" data-password required></label>
-					<div class="password-note auth-span-2" data-password-hint>Use 12+ characters with upper/lowercase, number, and symbol.</div>
-					<label class="auth-field">Authenticator code<input type="text" name="otp" maxlength="6" inputmode="numeric" autocomplete="one-time-code" placeholder="123456" required></label>
-					<div class="auth-span-2 auth-helper">Doctor and administrator accounts require a 6-digit authenticator code.</div>
-				</div>
-				<div class="auth-actions">
-					<button class="btn btn-primary" type="submit">Sign In</button>
-					<a class="btn" href="/pages/forgot-password.html">Forgot Password</a>
-				</div>
-				<p class="auth-footnote" data-sign-in-status>Signing in is handled locally in this preview so credentials are not sent through the URL.</p>
-			</form>
-			<aside class="panel auth-aside">
-				<h2>What to expect</h2>
-				<ul class="compact auth-list">
-					<li>Email and password are the only sign-in methods in version one.</li>
-					<li>Two-factor authentication protects doctor and administrator accounts.</li>
-					<li>Identity, license, and certification checks happen separately from account creation.</li>
-				</ul>
-				<div class="notice auth-notice">If you are unable to access your account, use password recovery or contact support after confirming your verification status.</div>
-				<div class="auth-links">
-					<a class="btn" href="/pages/join-as-doctor.html">Join as a Doctor</a>
-					<a class="btn" href="/pages/how-verification-works.html">How verification works</a>
-				</div>
-			</aside>
-		</section>
-	</main>
+  <main class="page-shell auth-shell">
+    <section class="page-hero auth-hero">
+      <p class="eyebrow">Secure access</p>
+      <h1>Sign In</h1>
+      <p>Email/password authentication powers version one. Social and passkey auth are on the roadmap.</p>
+      <ul class="hero-pills" aria-label="Sign in highlights">
+        <li>Local auth</li>
+        <li>TOTP required</li>
+        <li>No social login in v1</li>
+      </ul>
+    </section>
+    <section class="auth-layout">
+      <form class="panel auth-card" data-sign-in-form method="post" action="/pages/sign-in.html" onsubmit="return false">
+        <div class="auth-grid">
+          <label class="auth-field auth-span-2">Email<input type="email" name="email" autocomplete="email" placeholder="doctor@example.com" required></label>
+          <label class="auth-field">Password<input type="password" name="password" autocomplete="current-password" data-password required></label>
+          <div class="password-note auth-span-2" data-password-hint>Use 12+ characters with upper/lowercase, number, and symbol.</div>
+          <label class="auth-field">Authenticator code<input type="text" name="otp" maxlength="6" inputmode="numeric" autocomplete="one-time-code" placeholder="123456" required></label>
+          <div class="auth-span-2 auth-helper">Doctor and administrator accounts require a 6-digit authenticator code.</div>
+        </div>
+        <div class="auth-actions">
+          <button class="btn btn-primary" type="submit">Sign In</button>
+          <a class="btn" href="/pages/forgot-password.html">Forgot Password</a>
+        </div>
+        <p class="auth-footnote" data-sign-in-status>Signing in is handled locally in this preview so credentials are not sent through the URL.</p>
+      </form>
+      <aside class="panel auth-aside">
+        <h2>What to expect</h2>
+        <ul class="compact auth-list">
+          <li>Email and password are the only sign-in methods in version one.</li>
+          <li>Two-factor authentication protects doctor and administrator accounts.</li>
+          <li>Identity, license, and certification checks happen separately from account creation.</li>
+        </ul>
+        <div class="notice auth-notice">If you are unable to access your account, use password recovery or contact support after confirming your verification status.</div>
+        <div class="auth-links">
+          <a class="btn" href="/pages/join-as-doctor.html">Join as a Doctor</a>
+          <a class="btn" href="/pages/how-verification-works.html">How verification works</a>
+        </div>
+      </aside>
+    </section>
+  </main>
 </body>
 </html>
