@@ -1,0 +1,145 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>America's Real Doctors | Find a Doctor Who Listens</title>
+  <meta name="description" content="Discover verified doctors committed to informed consent, personalized care, and trusted doctor–patient relationships.">
+  <link rel="canonical" href="https://americasrealdoctors.com/">
+  <meta property="og:title" content="America's Real Doctors">
+  <meta property="og:description" content="Map-based directory for verified, patient-focused doctors.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://americasrealdoctors.com/">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="stylesheet" href="/assets/css/main.css">
+  <script type="module" src="/assets/js/main.js" defer></script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "America's Real Doctors",
+    "url": "https://americasrealdoctors.com",
+    "potentialAction": {
+      "@type": "SearchAction",
+      "target": "https://americasrealdoctors.com/pages/doctor-search-results.html?city={city}",
+      "query-input": "required name=city"
+    }
+  }
+  </script>
+</head>
+<body>
+<a href="#main-content" class="skip-link">Skip to main content</a>
+<header class="site-header">
+  <a class="brand" href="/index.html">America's Real Doctors</a>
+  <nav class="nav-links" aria-label="Primary">
+    <a href="/pages/explore-map.html">Explore Map</a>
+    <a href="/pages/doctor-search-results.html">Find a Doctor</a>
+    <a href="/pages/join-as-doctor.html">Join as a Doctor</a>
+    <a href="/pages/how-verification-works.html">Verification</a>
+    <a href="/pages/admin-dashboard.html">Admin</a>
+  </nav>
+  <button type="button" data-theme-toggle aria-label="Toggle dark and light theme">Theme</button>
+</header>
+
+<main id="main-content" class="page-shell">
+  <section class="hero">
+    <h1>Find a Doctor Who Listens.</h1>
+    <p>Discover verified doctors committed to informed consent, personalized care, and a stronger doctor–patient relationship.</p>
+    <div class="actions">
+      <a class="btn btn-primary" href="/pages/doctor-search-results.html">Find a Doctor</a>
+      <a class="btn" href="/pages/join-as-doctor.html">Join as a Doctor</a>
+    </div>
+  </section>
+
+  <section class="map-shell" data-map-enabled data-mobile-shell data-mobile-view="map" aria-label="Interactive doctor map">
+    <div class="mobile-map-toggle" role="tablist" aria-label="Switch mobile result view">
+      <button type="button" data-view-switch="map">Map</button>
+      <button type="button" data-view-switch="list">List</button>
+    </div>
+    <div class="layout-2">
+      <article class="panel map-panel">
+        <h2>Explore by Region</h2>
+        <div class="map" role="img" aria-label="Map with clustered doctor pins by city">
+          <svg viewBox="0 0 500 280" aria-hidden="true" focusable="false">
+            <rect x="0" y="0" width="500" height="280" fill="transparent" />
+            <path d="M45 60 C120 20, 220 35, 260 76 C320 52, 402 74, 455 116 C432 164, 380 193, 325 205 C280 238, 185 242, 115 208 C72 180, 58 120, 45 60 Z" fill="rgba(12,140,233,0.16)" />
+            <path d="M285 88 C320 65, 366 77, 392 111 C364 130, 337 134, 305 121 Z" fill="rgba(17,179,163,0.22)" />
+            <g>
+              <circle class="pin" cx="180" cy="145" r="16"></circle><text class="pin-label" x="180" y="150">12</text>
+              <circle class="pin" cx="245" cy="115" r="14"></circle><text class="pin-label" x="245" y="119">8</text>
+              <circle class="pin" cx="320" cy="150" r="12"></circle><text class="pin-label" x="320" y="154">5</text>
+            </g>
+          </svg>
+        </div>
+        <div class="actions">
+          <button type="button" data-cluster data-city="Philadelphia" data-docs="12" aria-label="Select Philadelphia cluster">Philadelphia</button>
+          <button type="button" data-cluster data-city="Toronto" data-docs="8" aria-label="Select Toronto cluster">Toronto</button>
+          <button type="button" data-cluster data-city="Austin" data-docs="5" aria-label="Select Austin cluster">Austin</button>
+          <button type="button" data-geolocate aria-label="Use my current location">Use my location</button>
+          <button type="button" data-search-area>Search this area</button>
+        </div>
+        <p class="notice" data-map-preview><strong>Tip:</strong> Select a map cluster to preview doctors, then search this area.</p>
+      </article>
+
+      <article class="panel list-panel">
+        <h2>Search Filters</h2>
+        <form data-search-form class="grid" aria-label="Doctor search filters">
+          <label>Doctor name<input type="text" name="doctorName" autocomplete="off"></label>
+          <label>Country<select name="country"><option value="">Any</option><option>USA</option><option>Canada</option></select></label>
+          <label>State / Province / Region<input type="text" name="region"></label>
+          <label>City<input type="text" name="city"></label>
+          <label>Distance<select name="distance"><option value="">Any</option><option>5 miles</option><option>10 miles</option><option>25 miles</option></select></label>
+          <label>Primary field / Specialty<input type="text" name="specialty"></label>
+          <label>Certifications<input type="text" name="certifications"></label>
+          <label>Languages spoken<input type="text" name="languages"></label>
+          <label>Care mode<select name="mode"><option value="">Any</option><option>In-person</option><option>Telehealth</option><option>Both</option></select></label>
+          <label>Telehealth availability<select name="telehealth"><option value="">Any</option><option value="true">Yes</option><option value="false">No</option></select></label>
+          <label>Accepting new patients<select name="accepting"><option value="">Any</option><option value="true">Yes</option><option value="false">No</option></select></label>
+          <label>Verified doctors only<select name="verifiedOnly"><option value="true">Yes</option></select></label>
+          <button type="submit" class="btn btn-primary">Apply Filters</button>
+        </form>
+      </article>
+    </div>
+  </section>
+
+  <section>
+    <h2>Doctor Results</h2>
+    <div class="card-list" data-doctor-list></div>
+  </section>
+
+  <section class="grid">
+    <article>
+      <h3>Verification badges are precise</h3>
+      <p>Doctors are never marked as fully verified only for creating an account.</p>
+      <ul class="compact" data-verification-badges></ul>
+    </article>
+    <article>
+      <h3>Security-first local authentication</h3>
+      <ul class="compact">
+        <li>Email/password only in v1 (no social login buttons)</li>
+        <li>TOTP required for doctor and administrator accounts</li>
+        <li>Administrative and authentication audit logging</li>
+      </ul>
+    </article>
+    <article>
+      <h3>Future phases</h3>
+      <ul class="compact" data-future-features></ul>
+    </article>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <nav class="footer-links" aria-label="Footer">
+    <a href="/pages/about.html">About</a>
+    <a href="/pages/frequently-asked-questions.html">FAQ</a>
+    <a href="/pages/privacy-policy.html">Privacy Policy</a>
+    <a href="/pages/terms-of-use.html">Terms of Use</a>
+    <a href="/pages/medical-disclaimer.html">Medical Disclaimer</a>
+    <a href="/pages/accessibility-statement.html">Accessibility Statement</a>
+    <a href="/pages/contact.html">Contact</a>
+    <a href="/sitemap.xml">XML Sitemap</a>
+  </nav>
+  <small>Educational directory only. No personalized medical advice. No doctor ranking based on payment.</small>
+</footer>
+</body>
+</html>
