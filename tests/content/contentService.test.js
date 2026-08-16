@@ -51,6 +51,20 @@ test('rejects middleware that calls next more than once', async () => {
   await assert.rejects(service.getSiteContent(), /next\(\) called more than once/);
 });
 
+test('projects every doctor search dimension through the public index', async () => {
+  const service = new ContentService();
+  const publicIndex = await service.getPublicDoctorIndex();
+
+  for (const doctor of publicIndex) {
+    assert.equal(typeof doctor.region, 'string');
+    assert.ok(Array.isArray(doctor.certifications));
+    assert.ok(Array.isArray(doctor.languages));
+    assert.equal(typeof doctor.telehealth, 'boolean');
+    assert.equal(typeof doctor.inPerson, 'boolean');
+    assert.ok(Array.isArray(doctor.verification));
+  }
+});
+
 test('keeps raw content provider imports behind ContentService', () => {
   const allowedFile = join('assets', 'js', 'services', 'contentService.js');
   const sourceFiles = ['assets/js', 'scripts', 'tests'].flatMap((root) => walk(root));

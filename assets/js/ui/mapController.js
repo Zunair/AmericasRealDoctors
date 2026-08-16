@@ -35,12 +35,13 @@ export class MapController {
               <div class="avatar" aria-hidden="true"></div>
               <div>
                 <strong>${doctor.name}</strong> <span>${doctor.credentials}</span><br>
-                <small>${doctor.specialty} · ${doctor.city}, ${doctor.country}</small>
+                <small>${doctor.specialty} · ${doctor.city}, ${doctor.region}, ${doctor.country}</small>
               </div>
             </div>
             <p>${doctor.intro}</p>
             <div>
               ${doctor.certifications.map((cert) => `<span class="badge">${cert}</span>`).join('')}
+              ${doctor.languages.map((language) => `<span class="badge">${language}</span>`).join('')}
               ${doctor.telehealth ? '<span class="badge">Telehealth</span>' : ''}
               ${doctor.acceptingNewPatients ? '<span class="badge">Accepting New Patients</span>' : ''}
               <span class="badge">${doctor.distance}</span>
@@ -76,10 +77,17 @@ export class MapController {
       this.renderDoctors(
         this.mapService.filterDoctors({
           name: formData.get('doctorName')?.toString() ?? '',
+          country: formData.get('country')?.toString() ?? '',
+          region: formData.get('region')?.toString() ?? '',
           city: formData.get('city')?.toString() ?? '',
+          distance: formData.get('distance')?.toString() ?? '',
           specialty: formData.get('specialty')?.toString() ?? '',
+          certification: formData.get('certification')?.toString() ?? '',
+          language: formData.get('language')?.toString() ?? '',
           telehealth: formData.get('telehealth')?.toString() ?? '',
-          accepting: formData.get('accepting')?.toString() ?? ''
+          accepting: formData.get('accepting')?.toString() ?? '',
+          careMode: formData.get('careMode')?.toString() ?? '',
+          verified: formData.get('verified')?.toString() ?? ''
         })
       );
     });

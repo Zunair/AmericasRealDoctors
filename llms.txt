@@ -8,7 +8,7 @@ Secure, map-based physician directory connecting patients with verified, indepen
 - JSON-LD, sitemap.xml, and llms.txt are generated from the same content registry.
 
 ## Search dimensions
-- name, specialty, city, country, language, telehealth, acceptingNewPatients, verification
+- name, specialty, city, region, country, distance, certification, language, telehealth, inPerson, acceptingNewPatients, verification
 
 ## Public pages
 ### core

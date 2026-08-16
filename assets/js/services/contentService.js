@@ -37,10 +37,13 @@ export class ContentService {
       credentials: doctor.credentials,
       specialty: doctor.specialty,
       city: doctor.city,
+      region: doctor.region,
       country: doctor.country,
       intro: doctor.intro,
       certifications: doctor.certifications,
+      languages: doctor.languages,
       telehealth: doctor.telehealth,
+      inPerson: doctor.inPerson,
       acceptingNewPatients: doctor.acceptingNewPatients,
       distance: doctor.distance,
       verification: doctor.verification
