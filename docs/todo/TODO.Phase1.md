@@ -6,6 +6,7 @@
 - [x] Verified the project passes formatting and automated tests.
 - [x] Replaced the Windows-incompatible lint shell pipeline with a portable Node-based checker.
 - [x] Added a compact architecture index for future expansion planning.
+- [x] Added architecture decisions and targeted-context guidance so contributors and Copilot can route changes without reading the entire repository.
 - [x] Replaced ad hoc page discovery with a canonical site content registry.
 - [x] Added a generator that emits `sitemap.xml`, `llms.txt`, and reusable schema output from the shared registry.
 - [x] Added architecture notes for the canonical content model and discovery pipeline.
@@ -50,7 +51,10 @@
 - Expand tests around shared UI controllers and schema generation as soon as the content pipeline becomes dynamic.
 - Revisit caching, versioning, and invalidation once the site starts serving generated data from an API or CMS.
 - Avoid duplicating page text or directory content across files; generate repeated content from the canonical registry.
-- Split a file once it starts mixing unrelated concerns, even if it has not hit a hard line-count limit.
+- Split a file once it starts mixing unrelated concerns, even if it has not hit a hard line-count limit, so contributors and Copilot can load only the context needed for a change.
+- Keep the project index focused on ownership and architecture decisions focused on durable constraints; update both when project structure or conventions change.
+- Include concise bullet points covering completed changes and validation whenever changes are committed or pushed, and reuse them in pull request descriptions when applicable.
+- Keep change-summary bullets in consistent simple present tense, using verbs such as `Adds`, `Changes`, `Updates`, `Fixes`, or `Removes`.
 - Prefer class-based or otherwise explicit object-oriented structure for reusable controllers and services rather than ad hoc one-off module patterns.
 - Keep UI controllers, security services, and utility modules aligned to a small number of predictable styles so the repo stays easy to open-source.
 
