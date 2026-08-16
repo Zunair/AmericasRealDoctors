@@ -50,5 +50,18 @@ export const SITE_CONTENT = {
     { title: 'Integrative Doctors in California', url: '/pages/integrative-doctors-in-california.html', description: 'Crawlable specialty and location landing page.', group: 'browse' },
     { title: 'Family Physicians Offering Telehealth', url: '/pages/family-physicians-offering-telehealth.html', description: 'Crawlable telehealth landing page for family physicians.', group: 'browse' }
   ],
-  browseDimensions: ['name', 'specialty', 'city', 'country', 'language', 'telehealth', 'acceptingNewPatients', 'verification']
+  browseDimensions: [
+    'name',
+    'specialty',
+    'city',
+    'region',
+    'country',
+    'distance',
+    'certification',
+    'language',
+    'telehealth',
+    'inPerson',
+    'acceptingNewPatients',
+    'verification'
+  ]
 };

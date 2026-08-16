@@ -20,6 +20,7 @@
 - [x] Centralized FAQ content in the canonical registry and added checks for generated schema and crawlable HTML alignment.
 - [x] Routed browser, build, and test content reads through one asynchronous service with middleware hooks for future CMS logging, metrics, and caching.
 - [x] Moved standard section spacing into the shared page shell so multi-section pages cannot accidentally render joined panels.
+- [x] Implemented the advertised doctor filters across canonical data, public projection, search service, and browser form wiring.
 
 ## Detailed Plan
 

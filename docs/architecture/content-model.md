@@ -5,8 +5,9 @@ The site treats the registry in `assets/js/data/siteContent.js` as the canonical
 ## Responsibilities
 
 - `assets/js/data/siteContent.js` defines the public pages, FAQs, browse surfaces, and search dimensions.
-- `assets/js/data/doctors.js` defines the seed doctor records used by the search and profile UI.
+- `assets/js/data/doctors.js` defines the seed doctor records and normalized search dimensions used by the search and profile UI.
 - `assets/js/services/contentService.js` is the only module that imports raw content providers and exposes content reads to browser, build, and test consumers.
+- `assets/js/services/mapService.js` evaluates the shared doctor filter contract independently of the data provider or UI.
 - `scripts/generate-discovery-files.mjs` generates `sitemap.xml`, `llms.txt`, and a reusable schema index from the shared registry.
 - `assets/js/pageContent.js` exposes the registry as page link data for UI consumers.
 
@@ -33,6 +34,7 @@ The site treats the registry in `assets/js/data/siteContent.js` as the canonical
 - Prefer page text and semantic HTML first, then add structured data as reinforcement.
 - Keep page copy, metadata, and directory descriptions in one canonical source so the same text is not duplicated across HTML, JSON-LD, sitemap notes, and docs.
 - Treat the doctor directory as one dataset and one rendering path, even if it later comes from a CMS or API.
+- Keep doctor region, certification, language, care-mode, acceptance, and verification fields normalized so static and future CMS providers use the same filter contract.
 - Keep raw provider imports private to `ContentService`; the content boundary test enforces this rule.
 - If content needs to appear in multiple places, generate it from the registry instead of hand-maintaining parallel copies.
 - Keep crawlable FAQ text and inline FAQ schema aligned with the canonical FAQ entries; focused tests enforce this until HTML generation owns both outputs.

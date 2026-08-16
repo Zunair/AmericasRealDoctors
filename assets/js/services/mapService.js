@@ -12,14 +12,54 @@ export class MapService {
     return [...counts.entries()].map(([location, count]) => ({ location, count }));
   }
 
-  filterDoctors({ name = '', city = '', specialty = '', telehealth = '', accepting = '' }) {
+  filterDoctors({
+    name = '',
+    country = '',
+    region = '',
+    city = '',
+    distance = '',
+    specialty = '',
+    certification = '',
+    language = '',
+    telehealth = '',
+    accepting = '',
+    careMode = '',
+    verified = ''
+  } = {}) {
     return this.doctors.filter((doctor) => {
-      if (name && !doctor.name.toLowerCase().includes(name.toLowerCase())) return false;
-      if (city && doctor.city.toLowerCase() !== city.toLowerCase()) return false;
-      if (specialty && !doctor.specialty.toLowerCase().includes(specialty.toLowerCase())) return false;
+      if (!this.includes(doctor.name, name)) return false;
+      if (!this.equals(doctor.country, country)) return false;
+      if (!this.includes(doctor.region, region)) return false;
+      if (!this.equals(doctor.city, city)) return false;
+      if (distance && Number.parseFloat(doctor.distance) > Number(distance)) return false;
+      if (!this.includes(doctor.specialty, specialty)) return false;
+      if (certification && !doctor.certifications.some((value) => this.includes(value, certification))) return false;
+      if (language && !doctor.languages.some((value) => this.includes(value, language))) return false;
       if (telehealth && String(doctor.telehealth) !== telehealth) return false;
       if (accepting && String(doctor.acceptingNewPatients) !== accepting) return false;
+      if (!this.matchesCareMode(doctor, careMode)) return false;
+      if (verified && String(this.isVerified(doctor)) !== verified) return false;
       return true;
     });
+  }
+
+  includes(value, query) {
+    return !query || value.toLowerCase().includes(query.trim().toLowerCase());
+  }
+
+  equals(value, query) {
+    return !query || value.toLowerCase() === query.trim().toLowerCase();
+  }
+
+  matchesCareMode(doctor, careMode) {
+    if (!careMode) return true;
+    if (careMode === 'in-person') return doctor.inPerson;
+    if (careMode === 'telehealth') return doctor.telehealth;
+    if (careMode === 'both') return doctor.inPerson && doctor.telehealth;
+    return false;
+  }
+
+  isVerified(doctor) {
+    return doctor.verification.length > 0 && doctor.verification.every((status) => status.endsWith('_verified'));
   }
 }
