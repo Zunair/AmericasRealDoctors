@@ -21,6 +21,7 @@
 - [x] Routed browser, build, and test content reads through one asynchronous service with middleware hooks for future CMS logging, metrics, and caching.
 - [x] Moved standard section spacing into the shared page shell so multi-section pages cannot accidentally render joined panels.
 - [x] Implemented the advertised doctor filters across canonical data, public projection, search service, and browser form wiring.
+- [x] Added shareable doctor-search URLs that hydrate filters and results from the generated schema parameter contract.
 
 ## Detailed Plan
 

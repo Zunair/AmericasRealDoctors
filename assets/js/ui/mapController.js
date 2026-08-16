@@ -1,12 +1,15 @@
 import { MapService } from '../services/mapService.js';
 import { contentService } from '../services/contentService.js';
+import { DOCTOR_SEARCH_FIELDS, DoctorSearchStateService } from '../services/doctorSearchStateService.js';
 
 export class MapController {
-  constructor({ documentRoot = document, doctors = [], mapService = new MapService(doctors) } = {}) {
+  constructor({ documentRoot = document, doctors = [], mapService = new MapService(doctors), searchState = new DoctorSearchStateService() } = {}) {
     this.documentRoot = documentRoot;
     this.doctors = doctors;
     this.mapService = mapService;
+    this.searchState = searchState;
     this.mapRoot = this.documentRoot.querySelector('[data-map-enabled]');
+    this.searchForm = this.documentRoot.querySelector('[data-search-form]');
     this.clusterButtons = this.documentRoot.querySelectorAll('[data-cluster]');
     this.preview = this.documentRoot.querySelector('[data-map-preview]');
     this.cityField = this.documentRoot.querySelector('[name="city"]');
@@ -21,7 +24,7 @@ export class MapController {
     this.bindSearchForm();
     this.bindGeolocation();
     this.bindViewSwitches();
-    this.renderDoctors(this.doctors);
+    this.renderDoctors(this.getInitialDoctors());
   }
 
   renderDoctors(doctors) {
@@ -71,26 +74,46 @@ export class MapController {
   }
 
   bindSearchForm() {
-    this.documentRoot.querySelector('[data-search-form]')?.addEventListener('submit', (event) => {
+    this.searchForm?.addEventListener('submit', (event) => {
       event.preventDefault();
-      const formData = new FormData(event.currentTarget);
-      this.renderDoctors(
-        this.mapService.filterDoctors({
-          name: formData.get('doctorName')?.toString() ?? '',
-          country: formData.get('country')?.toString() ?? '',
-          region: formData.get('region')?.toString() ?? '',
-          city: formData.get('city')?.toString() ?? '',
-          distance: formData.get('distance')?.toString() ?? '',
-          specialty: formData.get('specialty')?.toString() ?? '',
-          certification: formData.get('certification')?.toString() ?? '',
-          language: formData.get('language')?.toString() ?? '',
-          telehealth: formData.get('telehealth')?.toString() ?? '',
-          accepting: formData.get('accepting')?.toString() ?? '',
-          careMode: formData.get('careMode')?.toString() ?? '',
-          verified: formData.get('verified')?.toString() ?? ''
-        })
-      );
+      const values = this.readFormValues(event.currentTarget);
+      if (event.currentTarget.hasAttribute('data-sync-search-url')) this.searchState.replace(values);
+      this.renderDoctors(this.mapService.filterDoctors(this.toDoctorFilters(values)));
     });
+  }
+
+  getInitialDoctors() {
+    if (!this.searchForm?.hasAttribute('data-sync-search-url')) return this.doctors;
+
+    const values = this.searchState.read();
+    for (const [field, value] of Object.entries(values)) {
+      const control = this.searchForm.elements.namedItem(field);
+      if (control) control.value = value;
+    }
+
+    return this.mapService.filterDoctors(this.toDoctorFilters(values));
+  }
+
+  readFormValues(form) {
+    const formData = new FormData(form);
+    return Object.fromEntries(DOCTOR_SEARCH_FIELDS.map((field) => [field, formData.get(field)?.toString() ?? '']));
+  }
+
+  toDoctorFilters(values) {
+    return {
+      name: values.doctorName ?? '',
+      country: values.country ?? '',
+      region: values.region ?? '',
+      city: values.city ?? '',
+      distance: values.distance ?? '',
+      specialty: values.specialty ?? '',
+      certification: values.certification ?? '',
+      language: values.language ?? '',
+      telehealth: values.telehealth ?? '',
+      accepting: values.accepting ?? '',
+      careMode: values.careMode ?? '',
+      verified: values.verified ?? ''
+    };
   }
 
   bindGeolocation() {
