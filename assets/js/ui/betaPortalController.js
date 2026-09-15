@@ -361,6 +361,13 @@ export class BetaPortalController {
     const session = this.state.getCurrentSession();
     if (session?.role !== 'admin' && status) {
       status.textContent = 'Sign in with the beta admin account to manage applications.';
+      const pendingCountNode = this.documentRoot.querySelector('[data-admin-pending-count]');
+      const expiringCountNode = this.documentRoot.querySelector('[data-admin-expiring-count]');
+      if (pendingCountNode) pendingCountNode.textContent = '0';
+      if (expiringCountNode) expiringCountNode.textContent = '0';
+      queue.innerHTML = '<p class="notice">Administrator access is required to view the review queue.</p>';
+      auditBody.innerHTML = '';
+      return;
     }
 
     const render = () => {

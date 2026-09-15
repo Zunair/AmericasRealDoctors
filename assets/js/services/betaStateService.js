@@ -335,6 +335,8 @@ export class BetaStateService {
 
     const state = this.readState();
     const normalizedEmail = email.trim().toLowerCase();
+    const account = state.accounts.find((entry) => entry.email === normalizedEmail);
+    if (!account?.emailVerified) return { success: false };
     let enabledAccount = null;
     state.accounts = state.accounts.map((account) => {
       if (account.email !== normalizedEmail) return account;
