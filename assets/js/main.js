@@ -25,5 +25,5 @@ const doctors = await contentService.getDoctors();
 await initializeMapAndList({ doctors });
 await initializeDoctorProfile();
 initializeRegistrationGuards();
-initializeBetaPortal();
+await initializeBetaPortal();
 renderSharedLists();

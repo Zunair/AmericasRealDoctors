@@ -73,6 +73,14 @@ test('renders the doctor selected by query parameter instead of the session fall
       inPerson: true,
       acceptingNewPatients: true,
       verification: ['identity_verified', 'license_verified', 'certification_verified'],
+      articles: [
+        {
+          slug: 'dr-priya-rao-shared-decision-making',
+          title: 'Shared decision-making in pediatrics',
+          summary: 'Educational summary',
+          references: []
+        }
+      ],
       country: 'USA',
       intro: 'Profile two',
       distance: '5 mi'

@@ -1,7 +1,16 @@
-import { betaStateService } from '../services/contentService.js';
+import { betaStateService, contentService } from '../services/contentService.js';
 
 function readFormValues(form) {
   return Object.fromEntries(new FormData(form).entries());
+}
+
+function escapeHtml(value) {
+  return String(value)
+    .replaceAll('&', '&amp;')
+    .replaceAll('<', '&lt;')
+    .replaceAll('>', '&gt;')
+    .replaceAll('"', '&quot;')
+    .replaceAll("'", '&#39;');
 }
 
 function formatDateTime(value) {
@@ -28,7 +37,7 @@ export class BetaPortalController {
     this.state = state;
   }
 
-  initialize() {
+  async initialize() {
     this.bindRegistrationForm();
     this.bindEmailVerification();
     this.bindSignInForm();
@@ -40,7 +49,7 @@ export class BetaPortalController {
     this.renderDoctorDashboard();
     this.renderCredentialManagement();
     this.renderDoctorArticles();
-    this.renderArticleDetails();
+    await this.renderArticleDetails();
     this.renderAdminDashboard();
   }
 
@@ -279,15 +288,15 @@ export class BetaPortalController {
     const profile = application.profile;
     body.innerHTML = `
       <tr>
-        <td>${profile.licensedJurisdiction} Medical License</td>
+        <td>${escapeHtml(profile.licensedJurisdiction)} Medical License</td>
         <td>${application.verification.includes('license_verified') ? 'Verified' : 'Submitted'}</td>
-        <td>${profile.licenseExpiration}</td>
+        <td>${escapeHtml(profile.licenseExpiration)}</td>
         <td><button class="btn" type="button" data-credential-action>Upload renewal</button></td>
       </tr>
       <tr>
-        <td>${profile.certifications[0] ?? 'Certification'}</td>
+        <td>${escapeHtml(profile.certifications[0] ?? 'Certification')}</td>
         <td>${application.verification.includes('certification_verified') ? 'Verified' : 'Submitted'}</td>
-        <td>${profile.licenseExpiration}</td>
+        <td>${escapeHtml(profile.licenseExpiration)}</td>
         <td><button class="btn" type="button" data-credential-action>Add document</button></td>
       </tr>
     `;
@@ -314,30 +323,31 @@ export class BetaPortalController {
       .map(
         (article) => `
           <article class="doctor-card">
-            <strong>${article.status === 'draft' ? 'Draft' : 'Published'}: ${article.title}</strong>
-            <p>Category: ${article.category}</p>
-            ${article.status === 'published' ? `<a class="btn" href="/pages/article-details.html?doctor=${application.slug}&article=${article.slug}">View article</a>` : ''}
+            <strong>${article.status === 'draft' ? 'Draft' : 'Published'}: ${escapeHtml(article.title)}</strong>
+            <p>Category: ${escapeHtml(article.category)}</p>
+            ${article.status === 'published' ? `<a class="btn" href="/pages/article-details.html?doctor=${encodeURIComponent(application.slug)}&article=${encodeURIComponent(article.slug)}">View article</a>` : ''}
           </article>
         `
       )
       .join('');
   }
 
-  renderArticleDetails() {
+  async renderArticleDetails() {
     const articleRoot = this.documentRoot.querySelector('[data-article-details]');
     if (!articleRoot) return;
 
     const doctorSlug = this.getQueryParam('doctor');
     if (!doctorSlug) return;
-    const application = doctorSlug ? this.state.getDoctorBySlug(doctorSlug) : null;
-    const articles = application?.profile.articles?.filter((article) => article.status === 'published') ?? [];
+    const publicDoctors = await contentService.getDoctors();
+    const doctor = publicDoctors.find((entry) => entry.slug === doctorSlug);
+    const articles = doctor?.articles ?? [];
     const articleSlug = this.getQueryParam('article');
     const article = articles.find((entry) => entry.slug === articleSlug) ?? articles[0];
-    if (!application || !article) return;
+    if (!doctor || !article) return;
 
     this.documentRoot.querySelector('[data-article-title]')?.replaceChildren(this.documentRoot.createTextNode(article.title));
     this.documentRoot.querySelector('[data-article-author]')?.replaceChildren(
-      this.documentRoot.createTextNode(`${application.profile.name} · Identity verified · Medical license verified`)
+      this.documentRoot.createTextNode(`${doctor.name} · Identity verified · Medical license verified`)
     );
     this.documentRoot.querySelector('[data-article-summary]')?.replaceChildren(this.documentRoot.createTextNode(article.summary));
     this.documentRoot.querySelector('[data-article-references]')?.replaceChildren(
@@ -387,12 +397,12 @@ export class BetaPortalController {
             .map(
               (application) => `
                 <article class="doctor-card">
-                  <strong>${application.profile.name}</strong>
-                  <p>${application.profile.specialty} · ${application.profile.city}, ${application.profile.region}</p>
-                  <p>Status: ${application.status}</p>
+                  <strong>${escapeHtml(application.profile.name)}</strong>
+                  <p>${escapeHtml(application.profile.specialty)} · ${escapeHtml(application.profile.city)}, ${escapeHtml(application.profile.region)}</p>
+                  <p>Status: ${escapeHtml(application.status)}</p>
                   <div class="actions">
-                    <button class="btn btn-primary" type="button" data-admin-approve="${application.slug}">Approve</button>
-                    <button class="btn" type="button" data-admin-return="${application.slug}">Keep in queue</button>
+                    <button class="btn btn-primary" type="button" data-admin-approve="${encodeURIComponent(application.slug)}">Approve</button>
+                    <button class="btn" type="button" data-admin-return="${encodeURIComponent(application.slug)}">Keep in queue</button>
                   </div>
                 </article>
               `
@@ -405,12 +415,12 @@ export class BetaPortalController {
         .map(
           (entry) => `
             <tr>
-              <td>${entry.actorEmail}</td>
+              <td>${escapeHtml(entry.actorEmail)}</td>
               <td>${formatDateTime(entry.date)}</td>
-              <td>${entry.action}</td>
-              <td>${entry.profile}</td>
-              <td>${entry.transition}</td>
-              <td>${entry.note}</td>
+              <td>${escapeHtml(entry.action)}</td>
+              <td>${escapeHtml(entry.profile)}</td>
+              <td>${escapeHtml(entry.transition)}</td>
+              <td>${escapeHtml(entry.note)}</td>
             </tr>
           `
         )
@@ -428,11 +438,11 @@ export class BetaPortalController {
       }
 
       if (approveSlug) {
-        this.state.setApplicationStatus({ slug: approveSlug, status: 'approved' });
+        this.state.setApplicationStatus({ slug: decodeURIComponent(approveSlug), status: 'approved' });
         if (status) status.textContent = 'Application approved and published to the beta directory.';
       }
       if (returnSlug) {
-        this.state.setApplicationStatus({ slug: returnSlug, status: 'pending', note: 'Held for follow-up' });
+        this.state.setApplicationStatus({ slug: decodeURIComponent(returnSlug), status: 'pending', note: 'Held for follow-up' });
         if (status) status.textContent = 'Application remains in the review queue.';
       }
       render();
@@ -449,6 +459,6 @@ export class BetaPortalController {
   }
 }
 
-export function initializeBetaPortal() {
-  new BetaPortalController().initialize();
+export async function initializeBetaPortal() {
+  await new BetaPortalController().initialize();
 }

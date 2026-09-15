@@ -518,7 +518,16 @@ export class BetaStateService {
       inPerson: profile.inPerson,
       acceptingNewPatients: profile.acceptingNewPatients,
       distance: profile.distance,
-      verification: [...application.verification]
+      verification: [...application.verification],
+      articles: (profile.articles ?? [])
+        .filter((article) => article.status === 'published')
+        .map((article) => ({
+          slug: article.slug,
+          title: article.title,
+          category: article.category,
+          summary: article.summary,
+          references: [...(article.references ?? [])]
+        }))
     };
   }
 }

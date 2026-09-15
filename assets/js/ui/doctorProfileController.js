@@ -1,12 +1,21 @@
 import { betaStateService, contentService } from '../services/contentService.js';
 import { VERIFICATION_BADGES } from '../config/constants.js';
 
+function escapeHtml(value) {
+  return String(value)
+    .replaceAll('&', '&amp;')
+    .replaceAll('<', '&lt;')
+    .replaceAll('>', '&gt;')
+    .replaceAll('"', '&quot;')
+    .replaceAll("'", '&#39;');
+}
+
 function toBadgeLabel(key) {
   return VERIFICATION_BADGES.find((badge) => badge.key === key)?.label ?? key;
 }
 
 function renderList(items) {
-  return items.map((item) => `<li>${item}</li>`).join('');
+  return items.map((item) => `<li>${escapeHtml(item)}</li>`).join('');
 }
 
 export class DoctorProfileController {
@@ -55,10 +64,10 @@ export class DoctorProfileController {
 
     if (clinical) {
       clinical.innerHTML = `
-        <p><strong>Primary specialty:</strong> ${doctor.specialty}</p>
-        <p><strong>Additional specialties:</strong> ${(fallbackProfile.additionalSpecialties ?? []).join(', ') || 'None listed'}</p>
-        <p><strong>Languages:</strong> ${doctor.languages.join(', ')}</p>
-        <p><strong>Care modes:</strong> ${doctor.inPerson ? 'In-person' : ''}${doctor.inPerson && doctor.telehealth ? ' · ' : ''}${doctor.telehealth ? 'Telehealth' : ''}</p>
+        <p><strong>Primary specialty:</strong> ${escapeHtml(doctor.specialty)}</p>
+        <p><strong>Additional specialties:</strong> ${escapeHtml((fallbackProfile.additionalSpecialties ?? []).join(', ') || 'None listed')}</p>
+        <p><strong>Languages:</strong> ${escapeHtml(doctor.languages.join(', '))}</p>
+        <p><strong>Care modes:</strong> ${escapeHtml(`${doctor.inPerson ? 'In-person' : ''}${doctor.inPerson && doctor.telehealth ? ' · ' : ''}${doctor.telehealth ? 'Telehealth' : ''}`)}</p>
         <p><strong>Accepting new patients:</strong> ${doctor.acceptingNewPatients ? 'Yes' : 'No'}</p>
       `;
     }
@@ -79,23 +88,23 @@ export class DoctorProfileController {
       const showPhone = fallbackProfile.visibility?.showPublicPhone ?? true;
       const showWebsite = fallbackProfile.visibility?.showWebsite ?? true;
       office.innerHTML = `
-        <p><strong>Office:</strong> ${fallbackProfile.officeName ?? `${doctor.city} practice`}</p>
-        <p><strong>Address:</strong> ${showExactAddress ? fallbackProfile.officeAddress ?? `${doctor.city}, ${doctor.region}` : `${doctor.city}, ${doctor.region}`}</p>
-        ${showPhone ? `<p><strong>Public phone:</strong> ${fallbackProfile.publicPhone ?? 'Available after contact request'}</p>` : '<p><strong>Public phone:</strong> Hidden by doctor preference</p>'}
-        ${showWebsite ? `<p><strong>Website:</strong> ${fallbackProfile.website ?? 'Not listed'}</p>` : '<p><strong>Website:</strong> Hidden by doctor preference</p>'}
-        <p><strong>Appointment:</strong> ${fallbackProfile.appointmentUrl ?? 'Contact office for scheduling'}</p>
+        <p><strong>Office:</strong> ${escapeHtml(fallbackProfile.officeName ?? `${doctor.city} practice`)}</p>
+        <p><strong>Address:</strong> ${escapeHtml(showExactAddress ? fallbackProfile.officeAddress ?? `${doctor.city}, ${doctor.region}` : `${doctor.city}, ${doctor.region}`)}</p>
+        ${showPhone ? `<p><strong>Public phone:</strong> ${escapeHtml(fallbackProfile.publicPhone ?? 'Available after contact request')}</p>` : '<p><strong>Public phone:</strong> Hidden by doctor preference</p>'}
+        ${showWebsite ? `<p><strong>Website:</strong> ${escapeHtml(fallbackProfile.website ?? 'Not listed')}</p>` : '<p><strong>Website:</strong> Hidden by doctor preference</p>'}
+        <p><strong>Appointment:</strong> ${escapeHtml(fallbackProfile.appointmentUrl ?? 'Contact office for scheduling')}</p>
       `;
     }
 
     if (articles) {
-      const publishedArticles = (fallbackProfile.articles ?? []).filter((article) => article.status === 'published');
+      const publishedArticles = (doctor.articles ?? []).filter((article) => article.slug);
       articles.innerHTML = publishedArticles
         .map(
           (article) => `
             <article class="doctor-card">
-              <strong>${article.title}</strong>
-              <p>${article.summary}</p>
-              <a class="btn" href="/pages/article-details.html?doctor=${doctor.slug}&article=${article.slug}">Read</a>
+              <strong>${escapeHtml(article.title)}</strong>
+              <p>${escapeHtml(article.summary)}</p>
+              <a class="btn" href="/pages/article-details.html?doctor=${encodeURIComponent(doctor.slug)}&article=${encodeURIComponent(article.slug)}">Read</a>
             </article>
           `
         )
