@@ -21,7 +21,7 @@
       </ul>
     </section>
     <section class="auth-layout">
-      <form class="panel auth-card" method="post" action="/pages/contact.html" onsubmit="return false">
+      <form class="panel auth-card" data-contact-form method="post" action="/pages/contact.html" onsubmit="return false">
         <div class="auth-grid">
           <label class="auth-field auth-span-2">Name<input type="text" name="name" autocomplete="name" placeholder="Dr. Jane Doe" required></label>
           <label class="auth-field">Email<input type="email" name="email" autocomplete="email" placeholder="doctor@example.com" required></label>
@@ -31,7 +31,7 @@
           <button class="btn btn-primary" type="submit">Send</button>
           <a class="btn" href="/pages/frequently-asked-questions.html">View FAQ</a>
         </div>
-        <p class="auth-footnote">For patient safety issues, include the profile URL and a short summary of the correction needed.</p>
+        <p class="auth-footnote" data-contact-status>For patient safety issues, include the profile URL and a short summary of the correction needed.</p>
       </form>
       <aside class="panel auth-aside">
         <h2>What we can help with</h2>

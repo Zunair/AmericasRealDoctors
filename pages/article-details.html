@@ -10,12 +10,18 @@
   <script type="module" src="/assets/js/main.js" defer></script>
 </head>
 <body>
-<main id="main-content" class="page-shell">
+<main id="main-content" class="page-shell" data-article-details>
   <section class="page-hero">
-    <h1>Shared Decision-Making in Family Medicine</h1>
+    <h1 data-article-title>Shared Decision-Making in Family Medicine</h1>
     <p>Educational doctor article page with author profile and verification status.</p>
   </section>
-  <section><p><strong>Author:</strong> Dr. Elena Morris · Identity verified · Medical license verified</p><p><strong>Summary:</strong> Educational article to support patient understanding and informed discussions.</p><p>This article is educational and does not establish a doctor–patient relationship or replace individualized medical care.</p><h2>References</h2><ul class="compact"><li>CDC preventive care recommendations</li><li>USPSTF guidelines</li></ul></section>
+  <section>
+    <p><strong>Author:</strong> <span data-article-author>Dr. Elena Morris · Identity verified · Medical license verified</span></p>
+    <p><strong>Summary:</strong> <span data-article-summary>Educational article to support patient understanding and informed discussions.</span></p>
+    <p>This article is educational and does not establish a doctor–patient relationship or replace individualized medical care.</p>
+    <h2>References</h2>
+    <ul class="compact" data-article-references"><li>CDC preventive care recommendations</li><li>USPSTF guidelines</li></ul>
+  </section>
 </main>
 </body>
 </html>

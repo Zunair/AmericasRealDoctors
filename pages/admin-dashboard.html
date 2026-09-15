@@ -15,21 +15,26 @@
     <h1>Administrative Verification Dashboard</h1>
     <p>Review doctor applications, credentials, expirations, reports, specialties, locations, and audit logs.</p>
   </section>
+  <section class="notice"><p data-admin-status>Sign in to review beta applications.</p></section>
   <section class="grid admin-grid">
     <article class="panel">
       <h2>Application queue</h2>
-      <p>Pending reviews: 14</p>
-      <button class="btn btn-primary" type="button">Review applications</button>
+      <p>Pending reviews: <span data-admin-pending-count>0</span></p>
+      <button class="btn btn-primary" type="button" data-admin-review-button>Review applications</button>
     </article>
     <article class="panel">
       <h2>Credential expiration flags</h2>
-      <p>Expiring within 60 days: 6</p>
-      <button class="btn" type="button">Flag profiles</button>
+      <p>Expiring within 60 days: <span data-admin-expiring-count>0</span></p>
+      <button class="btn" type="button" data-admin-expiring-button>Flag profiles</button>
     </article>
     <article class="panel">
       <h2>Reference data management</h2>
       <p>Manage specialties, certification types, countries, states/provinces, and cities.</p>
     </article>
+  </section>
+  <section class="panel">
+    <h2>Applications awaiting review</h2>
+    <div class="card-list" data-admin-queue></div>
   </section>
   <section class="panel admin-audit">
     <h2>Audit log</h2>
@@ -38,9 +43,7 @@
         <thead>
           <tr><th>Admin</th><th>Date</th><th>Action</th><th>Profile</th><th>Old → New</th><th>Note</th></tr>
         </thead>
-        <tbody>
-          <tr><td>admin@ard</td><td>2026-07-29 14:30 UTC</td><td>Approve</td><td>Dr. E. Morris</td><td>Pending → Approved</td><td>License validated</td></tr>
-        </tbody>
+        <tbody data-admin-audit-body></tbody>
       </table>
     </div>
   </section>

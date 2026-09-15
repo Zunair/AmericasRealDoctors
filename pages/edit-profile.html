@@ -15,7 +15,14 @@
     <h1>Edit Public Doctor Profile</h1>
     <p>Update profile details, visibility controls, and office contact preferences.</p>
   </section>
-  <section class="grid"><label>Show exact office address publicly<select><option>Yes</option><option selected>No, show city only</option></select></label><label>Show public phone<select><option selected>Yes</option><option>No</option></select></label><label>Show website<select><option selected>Yes</option><option>No</option></select></label><label>Short intro<textarea></textarea></label><button class="btn btn-primary">Save changes</button></section>
+  <form class="panel grid" data-edit-profile-form method="post" action="/pages/edit-profile.html" onsubmit="return false">
+    <label>Show exact office address publicly<select name="showExactAddress"><option value="yes">Yes</option><option value="no">No, show city only</option></select></label>
+    <label>Show public phone<select name="showPublicPhone"><option value="yes">Yes</option><option value="no">No</option></select></label>
+    <label>Show website<select name="showWebsite"><option value="yes">Yes</option><option value="no">No</option></select></label>
+    <label>Short intro<textarea name="intro" rows="5"></textarea></label>
+    <button class="btn btn-primary" type="submit">Save changes</button>
+  </form>
+  <section class="notice"><p data-edit-profile-status>Update your public profile visibility and summary here.</p></section>
 </main>
 </body>
 </html>

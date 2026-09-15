@@ -15,7 +15,52 @@
     <h1>Doctor Registration (8 Steps)</h1>
     <p>Account setup, email verification, TOTP setup, profile fields, credential submission, preview, and administrative review.</p>
   </section>
-  <section><ol><li>Account information</li><li>Email verification</li><li>Two-factor authentication setup</li><li>Personal and professional information</li><li>Office and location details</li><li>License and certification submission</li><li>Profile preview</li><li>Submission for administrative review</li></ol></section><section class="grid"><label>Email<input type="email"></label><label>Password<input data-password type="password"></label><p data-password-hint>Use 12+ characters with upper/lowercase, number, and symbol.</p><label>First name<input></label><label>Last name<input></label><label>Credentials<input></label><label>Primary field<input></label><label>Additional specialties<input></label><label>Biography<textarea></textarea></label><label>Office name<input></label><label>Office address<input></label><label>Public phone<input></label><label>Public email (optional)<input type="email"></label><label>Website<input></label><label>Languages<input></label><label>License number<input></label><label>Licensing authority<input></label><label>Licensed jurisdiction<input></label><label>License expiration<input type="date"></label><label>Appointment URL<input></label><label>Accepting new patients<select><option>Yes</option><option>No</option></select></label><button class="btn btn-primary">Save draft</button></section><section class="notice">Profiles remain private until an administrator approves them.</section>
+  <section>
+    <ol>
+      <li>Account information</li>
+      <li>Email verification</li>
+      <li>Two-factor authentication setup</li>
+      <li>Personal and professional information</li>
+      <li>Office and location details</li>
+      <li>License and certification submission</li>
+      <li>Profile preview</li>
+      <li>Submission for administrative review</li>
+    </ol>
+  </section>
+  <form class="panel grid" data-registration-form method="post" action="/pages/doctor-registration.html" onsubmit="return false">
+    <label>Email<input type="email" name="email" autocomplete="email" required></label>
+    <label>Password<input data-password type="password" name="password" autocomplete="new-password" required></label>
+    <p data-password-hint>Use 12+ characters with upper/lowercase, number, and symbol.</p>
+    <label>First name<input name="firstName" required></label>
+    <label>Last name<input name="lastName" required></label>
+    <label>Credentials<input name="credentials" placeholder="MD, DO, NP, PA" required></label>
+    <label>Primary field<input name="specialty" required></label>
+    <label>Additional specialties<input name="additionalSpecialties" placeholder="Integrative Medicine, Preventive Care"></label>
+    <label>Biography<textarea name="biography" rows="5" required></textarea></label>
+    <label>Office name<input name="officeName" required></label>
+    <label>Office address<input name="officeAddress" required></label>
+    <label>City<input name="city" required></label>
+    <label>State / Province / Region<input name="region" required></label>
+    <label>Country<select name="country" required><option value="USA">USA</option><option value="Canada">Canada</option></select></label>
+    <label>Public phone<input name="publicPhone" required></label>
+    <label>Public email (optional)<input type="email" name="publicEmail"></label>
+    <label>Website<input name="website"></label>
+    <label>Languages<input name="languages" placeholder="English, Spanish"></label>
+    <label>License number<input name="licenseNumber" required></label>
+    <label>Licensing authority<input name="licensingAuthority" required></label>
+    <label>Licensed jurisdiction<input name="licensedJurisdiction" required></label>
+    <label>License expiration<input type="date" name="licenseExpiration" required></label>
+    <label>Appointment URL<input name="appointmentUrl"></label>
+    <label>Accepting new patients<select name="acceptingNewPatients"><option value="yes">Yes</option><option value="no">No</option></select></label>
+    <label>Care mode<select name="careMode"><option value="both">Both</option><option value="in-person">In-person</option><option value="telehealth">Telehealth</option></select></label>
+    <div class="actions">
+      <button class="btn" type="submit" value="draft">Save draft</button>
+      <button class="btn btn-primary" type="submit" value="submit">Submit for review</button>
+    </div>
+  </form>
+  <section class="notice">
+    <p data-registration-status>Profiles remain private until an administrator approves them.</p>
+  </section>
 </main>
 </body>
 </html>

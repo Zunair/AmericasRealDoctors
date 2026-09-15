@@ -15,7 +15,27 @@
     <h1>Set Up TOTP Two-Factor Authentication</h1>
     <p>Doctor and administrator accounts require TOTP with recovery-code confirmation.</p>
   </section>
-  <section class="grid"><article><h2>Authenticator setup</h2><p>Scan this QR code using Google Authenticator, Microsoft Authenticator, LastPass Authenticator, 1Password, Authy, or any standards-compatible TOTP app.</p><div class="panel" style="text-align:center;max-width:320px;"><p aria-label="QR code placeholder">[ QR CODE ]</p><code id="totp-secret">JBSW Y3DP EHPA 4A6N</code><div><button type="button" class="btn" data-copy-secret data-copy-secret="#totp-secret">Copy Secret</button></div></div></article><article><h2>Complete enrollment</h2><label>Enter six-digit code<input maxlength="6" inputmode="numeric"></label><label><input type="checkbox">I saved my one-time recovery codes.</label><button class="btn btn-primary">Enable 2FA</button><p class="notice">The TOTP secret is never shown again unless 2FA is securely reset.</p></article></section>
+  <section class="grid">
+    <article>
+      <h2>Authenticator setup</h2>
+      <p>Scan this QR code using Google Authenticator, Microsoft Authenticator, LastPass Authenticator, 1Password, Authy, or any standards-compatible TOTP app.</p>
+      <p class="password-note">Account: <span data-two-factor-email>Pending registration</span></p>
+      <div class="panel" style="text-align:center;max-width:320px;">
+        <p aria-label="QR code placeholder">[ QR CODE ]</p>
+        <code id="totp-secret">BETA DEMO TOTP SECRET</code>
+        <div><button type="button" class="btn" data-copy-secret data-copy-secret="#totp-secret">Copy Secret</button></div>
+      </div>
+    </article>
+    <article>
+      <h2>Complete enrollment</h2>
+      <form data-two-factor-form method="post" action="/pages/two-factor-setup.html" onsubmit="return false">
+        <label>Enter six-digit code<input name="otp" maxlength="6" inputmode="numeric" required></label>
+        <label><input type="checkbox" name="savedRecoveryCodes" value="yes">I saved my one-time recovery codes.</label>
+        <button class="btn btn-primary" type="submit">Enable 2FA</button>
+      </form>
+      <p class="notice" data-two-factor-status>The TOTP secret is never shown again unless 2FA is securely reset.</p>
+    </article>
+  </section>
 </main>
 </body>
 </html>
