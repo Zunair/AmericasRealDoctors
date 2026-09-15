@@ -140,6 +140,11 @@ test('publishes approved applications and persists doctor profile edits', () => 
     careMode: 'both'
   });
 
+  service.signIn({
+    email: 'admin@beta.americasrealdoctors.local',
+    password: 'BetaAdmin!1234',
+    otp: '654321'
+  });
   service.setApplicationStatus({ slug: application.slug, status: 'approved' });
   service.verifyEmail('doctor@example.com');
   service.enableTwoFactor({ email: 'doctor@example.com', code: '123456', confirmedSavedCodes: true });

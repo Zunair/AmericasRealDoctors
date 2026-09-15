@@ -327,7 +327,8 @@ export class BetaPortalController {
     const articleRoot = this.documentRoot.querySelector('[data-article-details]');
     if (!articleRoot) return;
 
-    const doctorSlug = this.getQueryParam('doctor') || this.state.getCurrentSession()?.doctorSlug || this.state.getApplications().find((application) => application.status === 'approved')?.slug || '';
+    const doctorSlug = this.getQueryParam('doctor');
+    if (!doctorSlug) return;
     const application = doctorSlug ? this.state.getDoctorBySlug(doctorSlug) : null;
     const articles = application?.profile.articles?.filter((article) => article.status === 'published') ?? [];
     const articleSlug = this.getQueryParam('article');

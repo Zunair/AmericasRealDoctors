@@ -413,7 +413,7 @@ export class BetaStateService {
 
     const state = this.readState();
     const account = state.accounts.find((entry) => entry.recoveryCodes.includes(normalizedCode));
-    if (!account) return { success: false };
+    if (!account || !account.emailVerified || !account.twoFactorEnabled) return { success: false };
 
     account.recoveryCodes = account.recoveryCodes.filter((value) => value !== normalizedCode);
     state.currentSession = {
@@ -444,7 +444,7 @@ export class BetaStateService {
 
   updateCurrentDoctorProfile(updates) {
     const session = this.getCurrentSession();
-    if (!session?.doctorSlug) return null;
+    if (session?.role !== 'doctor' || !session.doctorSlug) return null;
 
     const state = this.readState();
     let updatedApplication = null;
@@ -476,6 +476,7 @@ export class BetaStateService {
 
   setApplicationStatus({ slug, status, note = '', actorEmail = 'admin@beta.americasrealdoctors.local' }) {
     const state = this.readState();
+    if (state.currentSession?.role !== 'admin') return null;
     const previous = state.applications.find((application) => application.slug === slug);
     if (!previous) return null;
 
