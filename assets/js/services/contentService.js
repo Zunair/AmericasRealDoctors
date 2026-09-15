@@ -10,7 +10,7 @@ export const staticContentProvider = {
     return SITE_CONTENT;
   },
   async getDoctors() {
-    return betaStateService.getApprovedDoctors();
+    return betaStateService.getDirectoryDoctors(DOCTORS);
   }
 };
 

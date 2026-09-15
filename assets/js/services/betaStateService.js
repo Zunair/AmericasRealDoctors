@@ -251,6 +251,18 @@ export class BetaStateService {
       .map((application) => this.toPublicDoctor(application));
   }
 
+  getDirectoryDoctors(canonicalDoctors = this.seedDoctors) {
+    const approvedDoctors = this.getApprovedDoctors();
+    const approvedBySlug = new Map(approvedDoctors.map((doctor) => [doctor.slug, doctor]));
+    const canonicalSlugs = canonicalDoctors.map((doctor) => createSlug(doctor.name));
+    const mergedDoctors = canonicalDoctors.map((doctor) => {
+      const slug = createSlug(doctor.name);
+      return approvedBySlug.get(slug) ?? { slug, ...doctor };
+    });
+    const betaOnlyDoctors = approvedDoctors.filter((doctor) => !canonicalSlugs.includes(doctor.slug));
+    return [...mergedDoctors, ...betaOnlyDoctors];
+  }
+
   getDoctorBySlug(slug) {
     const application = this.readState().applications.find((entry) => entry.slug === slug);
     return application ? clone(application) : null;
@@ -420,7 +432,7 @@ export class BetaStateService {
   saveSupportRequest(formData) {
     const state = this.readState();
     state.supportRequests.unshift({
-      id: `${Date.now()}`,
+      id: `${this.now().toISOString()}-${state.supportRequests.length + 1}`,
       name: formData.name.trim(),
       email: formData.email.trim().toLowerCase(),
       message: formData.message.trim(),

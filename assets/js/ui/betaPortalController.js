@@ -369,9 +369,10 @@ export class BetaPortalController {
     const render = () => {
       const applications = this.state.getApplications();
       const pendingApplications = applications.filter((application) => application.status !== 'approved');
+      const currentTime = this.state.now().getTime();
       const expiringCount = applications.filter((application) => {
         if (!application.profile.licenseExpiration) return false;
-        const difference = new Date(application.profile.licenseExpiration).getTime() - Date.now();
+        const difference = new Date(application.profile.licenseExpiration).getTime() - currentTime;
         return difference > 0 && difference <= 1000 * 60 * 60 * 24 * 60;
       }).length;
 
