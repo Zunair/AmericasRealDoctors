@@ -2,13 +2,15 @@ import { DOCTORS } from '../data/doctors.js';
 import { SITE_CONTENT } from '../data/siteContent.js';
 import { BetaStateService } from './betaStateService.js';
 
+export const betaStateService = new BetaStateService({ seedDoctors: DOCTORS });
+
 export const staticContentProvider = {
   name: 'static-content',
   async getSiteContent() {
     return SITE_CONTENT;
   },
   async getDoctors() {
-    return new BetaStateService({ seedDoctors: DOCTORS }).getApprovedDoctors();
+    return betaStateService.getApprovedDoctors();
   }
 };
 

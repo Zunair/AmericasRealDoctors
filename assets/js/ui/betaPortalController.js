@@ -1,4 +1,4 @@
-import { BetaStateService } from '../services/betaStateService.js';
+import { betaStateService } from '../services/contentService.js';
 
 function readFormValues(form) {
   return Object.fromEntries(new FormData(form).entries());
@@ -20,7 +20,7 @@ export class BetaPortalController {
     documentRoot = document,
     location = globalThis.location,
     windowRef = globalThis.window,
-    state = new BetaStateService()
+    state = betaStateService
   } = {}) {
     this.documentRoot = documentRoot;
     this.location = location;
@@ -139,12 +139,8 @@ export class BetaPortalController {
     form.addEventListener('submit', (event) => {
       event.preventDefault();
       const email = readFormValues(form).email?.toString() ?? '';
-      const result = this.state.startPasswordReset(email);
-      if (status) {
-        status.textContent = result.success
-          ? 'Reset instructions queued for the verified address on file.'
-          : 'No matching account was found for that email address.';
-      }
+      this.state.startPasswordReset(email);
+      if (status) status.textContent = 'If the address is on file, reset instructions will be sent to the verified email.';
     });
   }
 
@@ -253,18 +249,18 @@ export class BetaPortalController {
     ].filter(Boolean).length;
     const completion = Math.round((completedSections / 6) * 100);
 
-    this.documentRoot.querySelector('[data-dashboard-name]')?.replaceChildren(document.createTextNode(profile.name));
-    this.documentRoot.querySelector('[data-dashboard-completion]')?.replaceChildren(document.createTextNode(`${completion}%`));
-    this.documentRoot.querySelector('[data-dashboard-verification]')?.replaceChildren(document.createTextNode(application.verification.join('; ').replaceAll('_', ' ')));
-    this.documentRoot.querySelector('[data-dashboard-review-date]')?.replaceChildren(document.createTextNode(application.reviewDate || 'Pending review'));
+    this.documentRoot.querySelector('[data-dashboard-name]')?.replaceChildren(this.documentRoot.createTextNode(profile.name));
+    this.documentRoot.querySelector('[data-dashboard-completion]')?.replaceChildren(this.documentRoot.createTextNode(`${completion}%`));
+    this.documentRoot.querySelector('[data-dashboard-verification]')?.replaceChildren(this.documentRoot.createTextNode(application.verification.join('; ').replaceAll('_', ' ')));
+    this.documentRoot.querySelector('[data-dashboard-review-date]')?.replaceChildren(this.documentRoot.createTextNode(application.reviewDate || 'Pending review'));
     this.documentRoot.querySelector('[data-dashboard-credential-health]')?.replaceChildren(
-      document.createTextNode(`${profile.licensedJurisdiction} license active until ${profile.licenseExpiration}`)
+      this.documentRoot.createTextNode(`${profile.licensedJurisdiction} license active until ${profile.licenseExpiration}`)
     );
     this.documentRoot.querySelector('[data-dashboard-security]')?.replaceChildren(
-      document.createTextNode(`2FA ${this.state.getCurrentSession() ? 'enabled' : 'required'} · Recovery codes available in account recovery`)
+      this.documentRoot.createTextNode(`2FA ${this.state.getCurrentSession() ? 'enabled' : 'required'} · Recovery codes available in account recovery`)
     );
     this.documentRoot.querySelector('[data-dashboard-content]')?.replaceChildren(
-      document.createTextNode(`${profile.articles.filter((article) => article.status === 'published').length} published · ${profile.articles.filter((article) => article.status === 'draft').length} drafts`)
+      this.documentRoot.createTextNode(`${profile.articles.filter((article) => article.status === 'published').length} published · ${profile.articles.filter((article) => article.status === 'draft').length} drafts`)
     );
   }
 
@@ -338,14 +334,14 @@ export class BetaPortalController {
     const article = articles.find((entry) => entry.slug === articleSlug) ?? articles[0];
     if (!application || !article) return;
 
-    this.documentRoot.querySelector('[data-article-title]')?.replaceChildren(document.createTextNode(article.title));
+    this.documentRoot.querySelector('[data-article-title]')?.replaceChildren(this.documentRoot.createTextNode(article.title));
     this.documentRoot.querySelector('[data-article-author]')?.replaceChildren(
-      document.createTextNode(`${application.profile.name} · Identity verified · Medical license verified`)
+      this.documentRoot.createTextNode(`${application.profile.name} · Identity verified · Medical license verified`)
     );
-    this.documentRoot.querySelector('[data-article-summary]')?.replaceChildren(document.createTextNode(article.summary));
+    this.documentRoot.querySelector('[data-article-summary]')?.replaceChildren(this.documentRoot.createTextNode(article.summary));
     this.documentRoot.querySelector('[data-article-references]')?.replaceChildren(
       ...article.references.map((reference) => {
-        const item = document.createElement('li');
+        const item = this.documentRoot.createElement('li');
         item.textContent = reference;
         return item;
       })

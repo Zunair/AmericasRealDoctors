@@ -1,6 +1,6 @@
 import { MapService } from '../services/mapService.js';
 import { contentService } from '../services/contentService.js';
-import { DOCTOR_SEARCH_FIELDS, DoctorSearchStateService } from '../services/doctorSearchStateService.js';
+import { DOCTOR_SEARCH_FIELDS, DoctorSearchStateService, normalizeDoctorSearchValues } from '../services/doctorSearchStateService.js';
 
 export class MapController {
   constructor({ documentRoot = document, doctors = [], mapService = new MapService(doctors), searchState = new DoctorSearchStateService() } = {}) {
@@ -100,21 +100,7 @@ export class MapController {
   }
 
   readFormValues(form) {
-    const formData = new FormData(form);
-    return {
-      doctorName: formData.get('doctorName')?.toString() ?? '',
-      country: formData.get('country')?.toString() ?? '',
-      region: formData.get('region')?.toString() ?? '',
-      city: formData.get('city')?.toString() ?? '',
-      distance: formData.get('distance')?.toString() ?? '',
-      specialty: formData.get('specialty')?.toString() ?? '',
-      certification: formData.get('certification')?.toString() ?? formData.get('certifications')?.toString() ?? '',
-      language: formData.get('language')?.toString() ?? formData.get('languages')?.toString() ?? '',
-      telehealth: formData.get('telehealth')?.toString() ?? '',
-      accepting: formData.get('accepting')?.toString() ?? '',
-      careMode: formData.get('careMode')?.toString() ?? this.normalizeCareMode(formData.get('mode')?.toString() ?? ''),
-      verified: formData.get('verified')?.toString() ?? formData.get('verifiedOnly')?.toString() ?? ''
-    };
+    return normalizeDoctorSearchValues(new FormData(form));
   }
 
   toDoctorFilters(values) {
@@ -133,15 +119,6 @@ export class MapController {
       verified: values.verified ?? ''
     };
   }
-
-  normalizeCareMode(value) {
-    const normalized = value.trim().toLowerCase();
-    if (normalized === 'in-person') return 'in-person';
-    if (normalized === 'telehealth') return 'telehealth';
-    if (normalized === 'both') return 'both';
-    return '';
-  }
-
   bindGeolocation() {
     this.documentRoot.querySelector('[data-geolocate]')?.addEventListener('click', (event) => {
       const button = event.currentTarget;

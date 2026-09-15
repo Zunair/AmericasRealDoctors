@@ -354,13 +354,13 @@ export class BetaStateService {
     const state = this.readState();
     const normalizedEmail = email.trim().toLowerCase();
     const account = state.accounts.find((entry) => entry.email === normalizedEmail);
-    if (!account) return { success: false };
-
-    state.passwordResetRequests.unshift({
-      email: normalizedEmail,
-      requestedAt: this.now().toISOString()
-    });
-    this.writeState(state);
+    if (account) {
+      state.passwordResetRequests.unshift({
+        email: normalizedEmail,
+        requestedAt: this.now().toISOString()
+      });
+      this.writeState(state);
+    }
     return { success: true };
   }
 

@@ -1,5 +1,4 @@
-import { contentService } from '../services/contentService.js';
-import { BetaStateService } from '../services/betaStateService.js';
+import { betaStateService, contentService } from '../services/contentService.js';
 import { VERIFICATION_BADGES } from '../config/constants.js';
 
 function toBadgeLabel(key) {
@@ -15,7 +14,7 @@ export class DoctorProfileController {
     documentRoot = document,
     location = globalThis.location,
     content = contentService,
-    state = new BetaStateService()
+    state = betaStateService
   } = {}) {
     this.documentRoot = documentRoot;
     this.location = location;
@@ -27,7 +26,8 @@ export class DoctorProfileController {
   async initialize() {
     if (!this.profileRoot) return;
 
-    const slug = new URL(this.location.href).searchParams.get('doctor') ?? this.state.getCurrentSession()?.doctorSlug ?? '';
+    const requestedSlug = new URL(this.location.href).searchParams.get('doctor');
+    const slug = requestedSlug || this.state.getCurrentSession()?.doctorSlug || '';
     const doctors = await this.content.getDoctors();
     const publicDoctor = doctors.find((doctor) => doctor.slug === slug) ?? doctors[0];
     if (!publicDoctor) return;
