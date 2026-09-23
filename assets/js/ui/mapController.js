@@ -1,6 +1,6 @@
 import { MapService } from '../services/mapService.js';
 import { contentService } from '../services/contentService.js';
-import { DOCTOR_SEARCH_FIELDS, DoctorSearchStateService } from '../services/doctorSearchStateService.js';
+import { DOCTOR_SEARCH_FIELDS, DoctorSearchStateService, normalizeDoctorSearchValues } from '../services/doctorSearchStateService.js';
 
 export class MapController {
   constructor({ documentRoot = document, doctors = [], mapService = new MapService(doctors), searchState = new DoctorSearchStateService() } = {}) {
@@ -30,6 +30,11 @@ export class MapController {
   renderDoctors(doctors) {
     if (!this.list) return;
 
+    if (!doctors.length) {
+      this.list.innerHTML = '<p class="notice">No doctors match those filters yet. Try broadening the search or checking another city.</p>';
+      return;
+    }
+
     this.list.innerHTML = doctors
       .map(
         (doctor) => `
@@ -49,7 +54,7 @@ export class MapController {
               ${doctor.acceptingNewPatients ? '<span class="badge">Accepting New Patients</span>' : ''}
               <span class="badge">${doctor.distance}</span>
             </div>
-            <a class="btn" href="/pages/doctor-profile.html">View Profile</a>
+            <a class="btn" href="/pages/doctor-profile.html?doctor=${encodeURIComponent(doctor.slug ?? '')}">View Profile</a>
           </article>`
       )
       .join('');
@@ -95,8 +100,7 @@ export class MapController {
   }
 
   readFormValues(form) {
-    const formData = new FormData(form);
-    return Object.fromEntries(DOCTOR_SEARCH_FIELDS.map((field) => [field, formData.get(field)?.toString() ?? '']));
+    return normalizeDoctorSearchValues(new FormData(form));
   }
 
   toDoctorFilters(values) {
@@ -115,7 +119,6 @@ export class MapController {
       verified: values.verified ?? ''
     };
   }
-
   bindGeolocation() {
     this.documentRoot.querySelector('[data-geolocate]')?.addEventListener('click', (event) => {
       const button = event.currentTarget;
@@ -145,9 +148,9 @@ export class MapController {
   }
 }
 
-export async function initializeMapAndList({ documentRoot = document, service = contentService } = {}) {
+export async function initializeMapAndList({ documentRoot = document, service = contentService, doctors: providedDoctors } = {}) {
   if (!documentRoot.querySelector('[data-map-enabled]')) return;
 
-  const doctors = await service.getDoctors();
+  const doctors = providedDoctors ?? await service.getDoctors();
   new MapController({ documentRoot, doctors }).initialize();
 }

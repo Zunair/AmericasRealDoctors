@@ -15,7 +15,14 @@
     <h1>Verify Your Email</h1>
     <p>Confirm your email address before your doctor account can proceed to 2FA setup.</p>
   </section>
-  <section><p>A verification link has been sent to your email address. You must verify email ownership before account activation.</p><button class="btn">Resend verification email</button></section>
+  <section class="panel">
+    <p>A verification link has been sent to <strong data-email-target>your email address</strong>. You must verify email ownership before account activation.</p>
+    <div class="actions">
+      <button class="btn btn-primary" type="button" data-email-verify>Verify this email</button>
+      <button class="btn" type="button" data-email-resend>Resend verification email</button>
+    </div>
+    <p class="auth-footnote" data-email-status>Beta verification runs locally and then continues to two-factor setup.</p>
+  </section>
 </main>
 </body>
 </html>

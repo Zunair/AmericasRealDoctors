@@ -1,1 +1,38 @@
-<!doctype html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Account Recovery | America's Real Doctors</title><meta name="description" content="Recover account access with one-time recovery codes."><link rel="stylesheet" href="/assets/css/main.css"><script type="module" src="/assets/js/main.js" defer></script></head><body><main class="page-shell"><section class="page-hero"><h1>Account Recovery</h1><p>Use saved one-time recovery codes to regain access securely.</p></section><section><label>Recovery code<input></label><button class="btn btn-primary">Verify</button></section></main></body></html>
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Account Recovery | America's Real Doctors</title>
+  <meta name="description" content="Recover account access with one-time recovery codes.">
+  <link rel="stylesheet" href="/assets/css/main.css">
+  <script type="module" src="/assets/js/main.js" defer></script>
+</head>
+<body>
+  <main id="main-content" class="page-shell auth-shell">
+    <section class="page-hero auth-hero">
+      <h1>Account Recovery</h1>
+      <p>Use saved one-time recovery codes to regain access securely.</p>
+    </section>
+    <section class="auth-layout">
+      <form class="panel auth-card" data-account-recovery-form method="post" action="/pages/account-recovery.html" onsubmit="return false">
+        <div class="auth-grid">
+          <label class="auth-field auth-span-2">Recovery code<input type="text" name="recoveryCode" autocomplete="one-time-code" required></label>
+        </div>
+        <div class="auth-actions">
+          <button class="btn btn-primary" type="submit">Verify</button>
+          <a class="btn" href="/pages/sign-in.html">Back to Sign In</a>
+        </div>
+        <p class="auth-footnote" data-account-recovery-status>Use one of the recovery codes saved when two-factor authentication was enabled.</p>
+      </form>
+      <aside class="panel auth-aside">
+        <h2>Beta demo</h2>
+        <ul class="compact auth-list">
+          <li>Recovery codes are shown only when two-factor authentication is enabled.</li>
+          <li>Each code can be used one time to restore access and must be stored securely.</li>
+        </ul>
+      </aside>
+    </section>
+  </main>
+</body>
+</html>

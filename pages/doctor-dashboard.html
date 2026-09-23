@@ -10,12 +10,37 @@
   <script type="module" src="/assets/js/main.js" defer></script>
 </head>
 <body>
-<main id="main-content" class="page-shell">
+<main id="main-content" class="page-shell" data-doctor-dashboard>
   <section class="page-hero">
     <h1>Doctor Dashboard</h1>
     <p>Track profile completion, verification, credentials, security settings, sessions, and article activity.</p>
   </section>
-  <section class="grid"><article><h2>Profile status</h2><p>Completion: 82%</p><p>Verification status: License verified; certification review pending.</p><p>Last profile review: 2026-07-25</p><a href="/pages/edit-profile.html" class="btn">Edit profile</a></article><article><h2>Credential health</h2><ul class="compact"><li>ABFM renewal due in 120 days</li><li>Pennsylvania license active until 2027-04-30</li></ul><a class="btn" href="/pages/credential-management.html">Manage credentials</a></article><article><h2>Security</h2><p>2FA: Enabled</p><p>Active sessions: 2</p><a class="btn" href="/pages/account-recovery.html">Security settings</a></article><article><h2>Content</h2><p>Published articles: 3</p><p>Drafts: 1</p><a class="btn" href="/pages/doctor-articles.html">Manage articles</a></article></section>
+  <section class="notice"><p data-doctor-dashboard-status>Sign in to load your doctor dashboard.</p></section>
+  <section class="grid">
+    <article>
+      <h2>Profile status</h2>
+      <p><strong data-dashboard-name>Doctor profile</strong></p>
+      <p>Completion: <span data-dashboard-completion>0%</span></p>
+      <p>Verification status: <span data-dashboard-verification>Pending</span></p>
+      <p>Last profile review: <span data-dashboard-review-date>Pending review</span></p>
+      <a href="/pages/edit-profile.html" class="btn">Edit profile</a>
+    </article>
+    <article>
+      <h2>Credential health</h2>
+      <p data-dashboard-credential-health>Credential details load after sign-in.</p>
+      <a class="btn" href="/pages/credential-management.html">Manage credentials</a>
+    </article>
+    <article>
+      <h2>Security</h2>
+      <p data-dashboard-security>2FA setup and recovery details load after sign-in.</p>
+      <a class="btn" href="/pages/account-recovery.html">Security settings</a>
+    </article>
+    <article>
+      <h2>Content</h2>
+      <p data-dashboard-content>Article status loads after sign-in.</p>
+      <a class="btn" href="/pages/doctor-articles.html">Manage articles</a>
+    </article>
+  </section>
 </main>
 </body>
 </html>

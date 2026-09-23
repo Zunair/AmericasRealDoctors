@@ -1,5 +1,8 @@
 import { DOCTORS } from '../data/doctors.js';
 import { SITE_CONTENT } from '../data/siteContent.js';
+import { BetaStateService } from './betaStateService.js';
+
+export const betaStateService = new BetaStateService({ seedDoctors: DOCTORS });
 
 export const staticContentProvider = {
   name: 'static-content',
@@ -7,7 +10,7 @@ export const staticContentProvider = {
     return SITE_CONTENT;
   },
   async getDoctors() {
-    return DOCTORS;
+    return betaStateService.getDirectoryDoctors(DOCTORS);
   }
 };
 
